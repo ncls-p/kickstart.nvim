@@ -67,9 +67,7 @@ return {
     "hashivim/vim-terraform",
     ft = { "terraform", "tf", "hcl" },
     config = function()
-      -- Enable terraform auto-format on save
-      vim.g.terraform_fmt_on_save = 1
-      vim.g.terraform_align = 1
+      -- Terraform configuration
       
       -- Add keymaps for Terraform files
       vim.api.nvim_create_autocmd("FileType", {
