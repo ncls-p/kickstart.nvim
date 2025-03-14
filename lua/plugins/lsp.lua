@@ -2,7 +2,7 @@
 return {
   -- LSP Development
   { 'folke/lazydev.nvim', ft = 'lua' },
-  
+
   -- Core LSP setup
   {
     'neovim/nvim-lspconfig',
@@ -79,17 +79,15 @@ return {
         },
         -- React
         eslint = {},
-        -- Java
-        jdtls = {},
         -- Python
         pyright = {
           settings = {
             python = {
               analysis = {
-                typeCheckingMode = "basic",
+                typeCheckingMode = 'basic',
                 autoSearchPaths = true,
                 useLibraryCodeForTypes = true,
-                diagnosticMode = "workspace",
+                diagnosticMode = 'workspace',
               },
             },
           },
@@ -101,7 +99,7 @@ return {
           settings = {
             ['rust-analyzer'] = {
               checkOnSave = {
-                command = "clippy",
+                command = 'clippy',
               },
               cargo = {
                 allFeatures = true,
@@ -145,37 +143,37 @@ return {
 
       -- Install servers and tools
       local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, { 
+      vim.list_extend(ensure_installed, {
         -- Language servers
         -- Formatters
-        'stylua',                -- Lua formatter
-        'prettier',              -- JS/TS/React/HTML/CSS/JSON/YAML formatter
-        'eslint_d',              -- JS/TS/React linter
-        'ruff',                  -- Python linter and formatter
-        'markdownlint',          -- Markdown linter
-        'google-java-format',    -- Java formatter
-        'rustfmt',               -- Rust formatter
-        'goimports',             -- Go imports formatter
-        'clang-format',          -- C/C++ formatter
-        'php-cs-fixer',          -- PHP formatter
-        'ktlint',                -- Kotlin formatter/linter
-        'shfmt',                 -- Shell formatter
-        
+        'stylua', -- Lua formatter
+        'prettier', -- JS/TS/React/HTML/CSS/JSON/YAML formatter
+        'eslint_d', -- JS/TS/React linter
+        'ruff', -- Python linter and formatter
+        'markdownlint', -- Markdown linter
+        'google-java-format', -- Java formatter
+        'rustfmt', -- Rust formatter
+        'goimports', -- Go imports formatter
+        'clang-format', -- C/C++ formatter
+        'php-cs-fixer', -- PHP formatter
+        'ktlint', -- Kotlin formatter/linter
+        'shfmt', -- Shell formatter
+
         -- Linters
-        'solhint',               -- Solidity linter
-        'htmlhint',              -- HTML linter
-        'stylelint',             -- CSS linter
-        'golangci-lint',         -- Go linter
-        'phpcs',                 -- PHP linter
-        'tflint',                -- Terraform linter
-        'yamllint',              -- YAML linter
-        'shellcheck',            -- Shell linter
-        'hadolint',              -- Dockerfile linter
-        
+        'solhint', -- Solidity linter
+        'htmlhint', -- HTML linter
+        'stylelint', -- CSS linter
+        'golangci-lint', -- Go linter
+        'phpcs', -- PHP linter
+        'tflint', -- Terraform linter
+        'yamllint', -- YAML linter
+        'shellcheck', -- Shell linter
+        'hadolint', -- Dockerfile linter
+
         -- DevOps specific tools
-        'helm-ls',               -- Helm language server
+        'helm-ls', -- Helm language server
         'docker-compose-language-service', -- Docker Compose language server
-        'terraform-ls',          -- Terraform language server
+        'terraform-ls', -- Terraform language server
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -184,18 +182,18 @@ return {
           function(server_name)
             local server = servers[server_name] or {}
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            
+
             -- Set up the server
             require('lspconfig')[server_name].setup(server)
           end,
         },
       }
-      
+
       -- Set up sourcekit manually since it's not available via Mason
-      if vim.fn.has("mac") == 1 then
-        local sourcekit_server = servers["sourcekit_lsp"] or {}
+      if vim.fn.has 'mac' == 1 then
+        local sourcekit_server = servers['sourcekit_lsp'] or {}
         sourcekit_server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, sourcekit_server.capabilities or {})
-        require('lspconfig')["sourcekit"].setup(sourcekit_server)
+        require('lspconfig')['sourcekit'].setup(sourcekit_server)
       end
     end,
   },
@@ -293,7 +291,7 @@ return {
     },
     init = function()
       -- Create a .prettierrc file in the Neovim config directory if it doesn't exist
-      local prettier_config_path = vim.fn.stdpath("config") .. "/.prettierrc"
+      local prettier_config_path = vim.fn.stdpath 'config' .. '/.prettierrc'
       if vim.fn.filereadable(prettier_config_path) == 0 then
         local prettier_config = {
           printWidth = 100,
@@ -301,16 +299,16 @@ return {
           useTabs = false,
           semi = true,
           singleQuote = true,
-          trailingComma = "es5",
+          trailingComma = 'es5',
           bracketSpacing = true,
-          arrowParens = "avoid",
-          endOfLine = "lf"
+          arrowParens = 'avoid',
+          endOfLine = 'lf',
         }
-        local file = io.open(prettier_config_path, "w")
+        local file = io.open(prettier_config_path, 'w')
         if file then
           file:write(vim.json.encode(prettier_config))
           file:close()
-          vim.notify("Created default .prettierrc in " .. vim.fn.stdpath("config"), vim.log.levels.INFO)
+          vim.notify('Created default .prettierrc in ' .. vim.fn.stdpath 'config', vim.log.levels.INFO)
         end
       end
     end,
@@ -319,13 +317,32 @@ return {
       formatters_by_ft = (function()
         -- List of filetypes that prettier supports
         local prettier_filetypes = {
-          "javascript", "javascriptreact", "typescript", "typescriptreact",
-          "vue", "css", "scss", "less", "html", "json", "jsonc", "yaml", "markdown",
-          "markdown.mdx", "graphql", "handlebars", "svelte", "xml", "dockerfile",
+          'javascript',
+          'javascriptreact',
+          'typescript',
+          'typescriptreact',
+          'vue',
+          'css',
+          'scss',
+          'less',
+          'html',
+          'json',
+          'jsonc',
+          'yaml',
+          'markdown',
+          'markdown.mdx',
+          'graphql',
+          'handlebars',
+          'svelte',
+          'xml',
+          'dockerfile',
           -- DevOps related files
-          "yaml.docker-compose", "yaml.helm", "hcl", "terraform"
+          'yaml.docker-compose',
+          'yaml.helm',
+          'hcl',
+          'terraform',
         }
-        
+
         -- Create a table to store the formatter configuration
         local formatters = {
           lua = { 'stylua' },
@@ -333,7 +350,7 @@ return {
           java = { 'google_java_format' },
           rust = { 'rustfmt' },
           scala = { 'scalafmt' },
-          solidity = { },
+          solidity = {},
           go = { 'goimports' },
           c = { 'clang_format' },
           cpp = { 'clang_format' },
@@ -347,19 +364,20 @@ return {
           bash = { 'shfmt' },
           zsh = { 'shfmt' },
         }
-        
+
         -- Set prettier as the formatter for all supported filetypes
         for _, ft in ipairs(prettier_filetypes) do
           formatters[ft] = { 'prettier' }
         end
-        
+
         return formatters
       end)(),
-      format_on_save = { 
-        timeout_ms = 1000, 
+      format_on_save = {
+        timeout_ms = 1000,
         lsp_format = 'fallback',
-        async = true 
+        async = true,
       },
     },
   },
 }
+
