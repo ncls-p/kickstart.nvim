@@ -291,33 +291,6 @@ local plugins = {
             },
           },
         },
-        -- JavaScript/TypeScript/React
-        tsserver = {
-          settings = {
-            typescript = {
-              inlayHints = {
-                includeInlayParameterNameHints = 'all',
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              },
-            },
-            javascript = {
-              inlayHints = {
-                includeInlayParameterNameHints = 'all',
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              },
-            },
-          },
-        },
         -- React
         eslint = {},
         -- Java
@@ -388,8 +361,6 @@ local plugins = {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, { 
         -- Language servers
-        'typescript-language-server', -- TypeScript/JavaScript language server
-        
         -- Formatters
         'stylua',                -- Lua formatter
         'prettier',              -- JS/TS/React/HTML/CSS/JSON/YAML formatter
@@ -435,12 +406,8 @@ local plugins = {
             local server = servers[server_name] or {}
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             
-            -- Special handling for specific servers
-            if server_name == "typescript-language-server" then
-              require('lspconfig')["tsserver"].setup(server)
-            else
-              require('lspconfig')[server_name].setup(server)
-            end
+            -- Set up the server
+            require('lspconfig')[server_name].setup(server)
           end,
         },
       }
