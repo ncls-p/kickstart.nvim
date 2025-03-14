@@ -354,7 +354,7 @@ local plugins = {
           },
         },
         -- Scala
-        metals = {},
+        scala_language_server = {},
         -- Solidity
         solidity = {},
         -- HTML/CSS
@@ -390,6 +390,7 @@ local plugins = {
       vim.list_extend(ensure_installed, { 
         -- Language servers
         'typescript-language-server', -- TypeScript/JavaScript language server
+        'scala-language-server',   -- Scala language server
         
         -- Formatters
         'stylua',                -- Lua formatter
@@ -439,6 +440,8 @@ local plugins = {
             -- Special handling for specific servers
             if server_name == "typescript-language-server" then
               require('lspconfig')["tsserver"].setup(server)
+            elseif server_name == "scala_language_server" then
+              require('lspconfig')["metals"].setup(server)
             else
               require('lspconfig')[server_name].setup(server)
             end

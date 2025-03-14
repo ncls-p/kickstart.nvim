@@ -131,4 +131,37 @@ return {
       vim.keymap.set("n", "<leader>kl", "<cmd>K8sLogs<CR>", { desc = "[K]8s [L]ogs" })
     end,
   },
+  
+  -- Scala support
+  {
+    "scalameta/nvim-metals",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    ft = { "scala", "sbt" },
+    config = function()
+      local metals_config = require("metals").bare_config()
+      
+      -- Configure metals
+      metals_config.settings = {
+        showImplicitArguments = true,
+        excludedPackages = {
+          "akka.actor.typed.javadsl",
+          "com.github.swagger.akka.javadsl",
+        },
+      }
+      
+      -- Metals setup
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "scala", "sbt" },
+        callback = function()
+          require("metals").initialize_or_attach(metals_config)
+          
+          -- Scala-specific keymaps
+          vim.keymap.set("n", "<leader>mc", require("metals").commands, { buffer = true, desc = "[M]etals [C]ommands" })
+          vim.keymap.set("n", "<leader>mt", require("metals").toggle_setting, { buffer = true, desc = "[M]etals [T]oggle Setting" })
+        end,
+      })
+    end,
+  },
 }
