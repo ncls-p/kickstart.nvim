@@ -436,7 +436,7 @@ local plugins = {
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             
             -- Special handling for specific servers
-            if server_name == "typescript-language-server" then
+            if server_name == "tsserver" then
               require('lspconfig')["tsserver"].setup(server)
             else
               require('lspconfig')[server_name].setup(server)
