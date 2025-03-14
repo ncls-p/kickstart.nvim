@@ -548,7 +548,7 @@ local plugins = {
     end,
     opts = {
       -- Define a function to determine if prettier should be used
-      formatters_by_ft = function()
+      formatters_by_ft = (function()
         -- List of filetypes that prettier supports
         local prettier_filetypes = {
           "javascript", "javascriptreact", "typescript", "typescriptreact",
@@ -583,7 +583,7 @@ local plugins = {
         end
         
         return formatters
-      end(),
+      end)(),
       format_on_save = { 
         timeout_ms = 1000, 
         lsp_format = 'fallback',
