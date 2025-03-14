@@ -417,6 +417,12 @@ local plugins = {
         'tflint',                -- Terraform linter
         'yamllint',              -- YAML linter
         'shellcheck',            -- Shell linter
+        'hadolint',              -- Dockerfile linter
+        
+        -- DevOps specific tools
+        'helm-ls',               -- Helm language server
+        'docker-compose-language-service', -- Docker Compose language server
+        'terraform-ls',          -- Terraform language server
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -553,7 +559,9 @@ local plugins = {
         local prettier_filetypes = {
           "javascript", "javascriptreact", "typescript", "typescriptreact",
           "vue", "css", "scss", "less", "html", "json", "jsonc", "yaml", "markdown",
-          "markdown.mdx", "graphql", "handlebars", "svelte", "xml"
+          "markdown.mdx", "graphql", "handlebars", "svelte", "xml", "dockerfile",
+          -- DevOps related files
+          "yaml.docker-compose", "yaml.helm", "yaml.kustomize", "hcl", "terraform"
         }
         
         -- Create a table to store the formatter configuration
@@ -572,6 +580,8 @@ local plugins = {
           swift = { 'swiftformat' },
           kotlin = { 'ktlint' },
           terraform = { 'terraform_fmt' },
+          hcl = { 'terraform_fmt' }, -- HCL files (Terraform, Packer, etc.)
+          dockerfile = { 'prettier' },
           sh = { 'shfmt' },
           bash = { 'shfmt' },
           zsh = { 'shfmt' },
@@ -900,12 +910,15 @@ local plugins = {
           'php',
           'swift',
           'kotlin',
-          'hcl',  -- Terraform
+          'hcl',  -- Terraform, Packer, etc.
           'dockerfile',
           'graphql',
           'sql',
           'toml',
           'xml',
+          'make',  -- Makefiles
+          'cmake',  -- CMake files
+          'kustomize', -- Kubernetes Kustomize
         },
         auto_install = true,
         highlight = { enable = true },
