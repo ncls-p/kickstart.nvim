@@ -561,7 +561,7 @@ local plugins = {
           "vue", "css", "scss", "less", "html", "json", "jsonc", "yaml", "markdown",
           "markdown.mdx", "graphql", "handlebars", "svelte", "xml", "dockerfile",
           -- DevOps related files
-          "yaml.docker-compose", "yaml.helm", "yaml.kustomize", "hcl", "terraform"
+          "yaml.docker-compose", "yaml.helm", "hcl", "terraform"
         }
         
         -- Create a table to store the formatter configuration
@@ -918,7 +918,7 @@ local plugins = {
           'xml',
           'make',  -- Makefiles
           'cmake',  -- CMake files
-          'kustomize', -- Kubernetes Kustomize
+          -- 'kustomize', -- Kubernetes Kustomize (not available yet)
         },
         auto_install = true,
         highlight = { enable = true },
