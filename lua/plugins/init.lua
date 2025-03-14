@@ -292,7 +292,7 @@ local plugins = {
           },
         },
         -- JavaScript/TypeScript/React
-        tsserver = {
+        typescript_language_server = {
           settings = {
             typescript = {
               inlayHints = {
@@ -387,6 +387,9 @@ local plugins = {
       -- Install servers and tools
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, { 
+        -- Language servers
+        'typescript-language-server', -- TypeScript/JavaScript language server
+        
         -- Formatters
         'stylua',                -- Lua formatter
         'prettier',              -- JS/TS/React/HTML/CSS/JSON/YAML formatter
@@ -431,7 +434,13 @@ local plugins = {
           function(server_name)
             local server = servers[server_name] or {}
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            
+            -- Special handling for typescript-language-server
+            if server_name == "typescript-language-server" then
+              require('lspconfig')["tsserver"].setup(server)
+            else
+              require('lspconfig')[server_name].setup(server)
+            end
           end,
         },
       }
