@@ -10,6 +10,7 @@ g.maplocalleader = ' '
 opt.number = true
 opt.relativenumber = true
 opt.mouse = 'a'
+opt.mousemoveevent = true  -- Enable mouse drag events
 opt.showmode = false
 opt.cursorline = true
 opt.scrolloff = 10
