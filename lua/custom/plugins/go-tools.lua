@@ -22,10 +22,10 @@ return {
       linters = { "revive", "golangci-lint" },
       
       -- Linter configuration
-      linter_flags = { "revive": {"-config", vim.fn.expand("~/.config/revive.toml")} },
+      linter_flags = { ["revive"] = {"-config", vim.fn.expand("~/.config/revive.toml")} },
       
       -- Formatter configuration
-      formatter_flags = { "goimports": {"-local", "github.com/org/project"} },
+      formatter_flags = { ["goimports"] = {"-local", "github.com/org/project"} },
       
       -- Test flags
       test_flags = { "-v" },
