@@ -67,8 +67,6 @@ return {
     "hashivim/vim-terraform",
     ft = { "terraform", "tf", "hcl" },
     config = function()
-      -- Terraform configuration
-      
       -- Add keymaps for Terraform files
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "terraform", "tf", "hcl" },
