@@ -345,9 +345,7 @@ local plugins = {
         'stylua',                -- Lua formatter
         'prettier',              -- JS/TS/React formatter
         'eslint_d',              -- JS/TS/React linter
-        'black',                 -- Python formatter
-        'isort',                 -- Python import sorter
-        'flake8',                -- Python linter
+        'ruff',                  -- Python linter and formatter (replaces black, isort, flake8)
         'markdownlint',          -- Markdown linter
         'google-java-format',    -- Java formatter
       })
@@ -468,7 +466,7 @@ local plugins = {
         html = { 'prettier' },
         css = { 'prettier' },
         -- Python
-        python = { 'isort', 'black' },
+        python = { 'ruff_format', 'ruff_fix' },
         -- Java
         java = { 'google_java_format' },
         -- Markdown
