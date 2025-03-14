@@ -369,7 +369,6 @@ local plugins = {
         'markdownlint',          -- Markdown linter
         'google-java-format',    -- Java formatter
         'rustfmt',               -- Rust formatter
-        'gofmt',                 -- Go formatter
         'goimports',             -- Go imports formatter
         'clang-format',          -- C/C++ formatter
         'rubocop',               -- Ruby formatter/linter
@@ -553,7 +552,7 @@ local plugins = {
           rust = { 'rustfmt' },
           scala = { 'scalafmt' },
           solidity = { },
-          go = { 'gofmt', 'goimports' },
+          go = { 'goimports' },
           c = { 'clang_format' },
           cpp = { 'clang_format' },
           ruby = { 'rubocop' },
