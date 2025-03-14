@@ -5,17 +5,25 @@
 return {
   -- GitHub Copilot
   'github/copilot.vim',
-  
+
   -- Copilot Chat
+  -- {
+  --   'CopilotC-Nvim/CopilotChat.nvim',
+  --   dependencies = {
+  --     { 'github/copilot.vim' }, -- or zbirenbaum/copilot.lua
+  --     { 'nvim-lua/plenary.nvim', branch = 'master' }, -- for curl, log and async functions
+  --   },
+  --   build = 'make tiktoken', -- Only on MacOS or Linux
+  --   opts = {
+  --     -- See Configuration section for options
+  --   },
+  -- },
   {
-    'CopilotC-Nvim/CopilotChat.nvim',
+    'olimorris/codecompanion.nvim',
+    config = true,
     dependencies = {
-      { 'github/copilot.vim' }, -- or zbirenbaum/copilot.lua
-      { 'nvim-lua/plenary.nvim', branch = 'master' }, -- for curl, log and async functions
-    },
-    build = 'make tiktoken', -- Only on MacOS or Linux
-    opts = {
-      -- See Configuration section for options
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
     },
   },
 
@@ -36,7 +44,7 @@ return {
       },
     },
   },
-  
+
   -- Aider AI coding assistant
   {
     'joshuavial/aider.nvim',

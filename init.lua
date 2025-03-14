@@ -4,12 +4,12 @@
 ---------------------------------------------------------------
 
 -- Load core modules
-require('core.options')    -- Basic Neovim options
-require('core.autocmds')   -- Autocommands
-local keymaps = require('keymaps')  -- Key mappings
+require 'core.options' -- Basic Neovim options
+require 'core.autocmds' -- Autocommands
+local keymaps = require 'keymaps' -- Key mappings
 
 -- Load plugins
-require('plugins')
+require 'plugins'
 
 -- Setup VSCode-like keybindings
 keymaps.setup_vscode_keys()
