@@ -369,7 +369,6 @@ local plugins = {
         'markdownlint',          -- Markdown linter
         'google-java-format',    -- Java formatter
         'rustfmt',               -- Rust formatter
-        'scalafmt',              -- Scala formatter
         'forge-fmt',             -- Solidity formatter
         'gofmt',                 -- Go formatter
         'goimports',             -- Go imports formatter
