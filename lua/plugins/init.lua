@@ -374,7 +374,7 @@ local plugins = {
         intelephense = {},
         -- Swift
         -- sourcekit is built into macOS and doesn't need to be installed via Mason
-        sourcekit_lsp = {},
+        -- We'll set it up manually outside of Mason
         -- Kotlin
         kotlin_language_server = {},
         -- Terraform
@@ -406,7 +406,7 @@ local plugins = {
         'clang-format',          -- C/C++ formatter
         'rubocop',               -- Ruby formatter/linter
         'php-cs-fixer',          -- PHP formatter
-        'swiftformat',           -- Swift formatter (but not sourcekit - it's built into macOS)
+        'swiftformat',           -- Swift formatter
         'ktlint',                -- Kotlin formatter/linter
         'terraform-fmt',         -- Terraform formatter
         'shfmt',                 -- Shell formatter
@@ -439,14 +439,19 @@ local plugins = {
             -- Special handling for specific servers
             if server_name == "typescript-language-server" then
               require('lspconfig')["tsserver"].setup(server)
-            elseif server_name == "sourcekit_lsp" then
-              require('lspconfig')["sourcekit"].setup(server)
             else
               require('lspconfig')[server_name].setup(server)
             end
           end,
         },
       }
+      
+      -- Set up sourcekit manually since it's not available via Mason
+      if vim.fn.has("mac") == 1 then
+        local sourcekit_server = servers["sourcekit_lsp"] or {}
+        sourcekit_server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, sourcekit_server.capabilities or {})
+        require('lspconfig')["sourcekit"].setup(sourcekit_server)
+      end
     end,
   },
 
