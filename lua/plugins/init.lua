@@ -337,17 +337,86 @@ local plugins = {
         },
         -- Markdown
         marksman = {},
+        -- Rust
+        rust_analyzer = {
+          settings = {
+            ['rust-analyzer'] = {
+              checkOnSave = {
+                command = "clippy",
+              },
+              cargo = {
+                allFeatures = true,
+              },
+              procMacro = {
+                enable = true,
+              },
+            },
+          },
+        },
+        -- Scala
+        metals = {},
+        -- Solidity
+        solidity = {},
+        -- HTML/CSS
+        html = {},
+        cssls = {},
+        -- JSON
+        jsonls = {},
+        -- YAML
+        yamlls = {},
+        -- Go
+        gopls = {},
+        -- C/C++
+        clangd = {},
+        -- Ruby
+        solargraph = {},
+        -- PHP
+        intelephense = {},
+        -- Swift
+        sourcekit = {},
+        -- Kotlin
+        kotlin_language_server = {},
+        -- Terraform
+        terraformls = {},
+        -- Docker
+        dockerls = {},
+        -- GraphQL
+        graphql = {},
       }
 
       -- Install servers and tools
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, { 
+        -- Formatters
         'stylua',                -- Lua formatter
-        'prettier',              -- JS/TS/React formatter
+        'prettier',              -- JS/TS/React/HTML/CSS/JSON/YAML formatter
         'eslint_d',              -- JS/TS/React linter
-        'ruff',                  -- Python linter and formatter (replaces black, isort, flake8)
+        'ruff',                  -- Python linter and formatter
         'markdownlint',          -- Markdown linter
         'google-java-format',    -- Java formatter
+        'rustfmt',               -- Rust formatter
+        'scalafmt',              -- Scala formatter
+        'forge-fmt',             -- Solidity formatter
+        'gofmt',                 -- Go formatter
+        'goimports',             -- Go imports formatter
+        'clang-format',          -- C/C++ formatter
+        'rubocop',               -- Ruby formatter/linter
+        'php-cs-fixer',          -- PHP formatter
+        'swiftformat',           -- Swift formatter
+        'ktlint',                -- Kotlin formatter/linter
+        'terraform-fmt',         -- Terraform formatter
+        'shfmt',                 -- Shell formatter
+        
+        -- Linters
+        'solhint',               -- Solidity linter
+        'htmlhint',              -- HTML linter
+        'stylelint',             -- CSS linter
+        'golangci-lint',         -- Go linter
+        'cppcheck',              -- C/C++ linter
+        'phpcs',                 -- PHP linter
+        'tflint',                -- Terraform linter
+        'yamllint',              -- YAML linter
+        'shellcheck',            -- Shell linter
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -471,6 +540,33 @@ local plugins = {
         java = { 'google_java_format' },
         -- Markdown
         markdown = { 'prettier' },
+        -- Rust
+        rust = { 'rustfmt' },
+        -- Scala
+        scala = { 'scalafmt' },
+        -- Solidity
+        solidity = { 'forge_fmt' },
+        -- Go
+        go = { 'gofmt', 'goimports' },
+        -- C/C++
+        c = { 'clang_format' },
+        cpp = { 'clang_format' },
+        -- Ruby
+        ruby = { 'rubocop' },
+        -- PHP
+        php = { 'php_cs_fixer' },
+        -- Swift
+        swift = { 'swiftformat' },
+        -- Kotlin
+        kotlin = { 'ktlint' },
+        -- Terraform
+        terraform = { 'terraform_fmt' },
+        -- YAML
+        yaml = { 'prettier' },
+        -- Shell
+        sh = { 'shfmt' },
+        bash = { 'shfmt' },
+        zsh = { 'shfmt' },
       },
       format_on_save = { timeout_ms = 500, lsp_format = 'fallback' },
     },
@@ -759,6 +855,7 @@ local plugins = {
         ensure_installed = {
           'bash',
           'c',
+          'cpp',
           'lua',
           'markdown',
           'vim',
@@ -775,6 +872,20 @@ local plugins = {
           'regex',
           'markdown_inline',
           'jsdoc',
+          'rust',
+          'scala',
+          'solidity',
+          'go',
+          'ruby',
+          'php',
+          'swift',
+          'kotlin',
+          'hcl',  -- Terraform
+          'dockerfile',
+          'graphql',
+          'sql',
+          'toml',
+          'xml',
         },
         auto_install = true,
         highlight = { enable = true },
