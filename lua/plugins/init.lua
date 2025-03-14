@@ -291,12 +291,66 @@ local plugins = {
             },
           },
         },
-        -- Add more language servers here
+        -- JavaScript/TypeScript/React
+        tsserver = {
+          settings = {
+            typescript = {
+              inlayHints = {
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+            javascript = {
+              inlayHints = {
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+          },
+        },
+        -- React
+        eslint = {},
+        -- Java
+        jdtls = {},
+        -- Python
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = "basic",
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = "workspace",
+              },
+            },
+          },
+        },
+        -- Markdown
+        marksman = {},
       }
 
       -- Install servers and tools
       local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, { 'stylua' })
+      vim.list_extend(ensure_installed, { 
+        'stylua',                -- Lua formatter
+        'prettier',              -- JS/TS/React formatter
+        'eslint_d',              -- JS/TS/React linter
+        'black',                 -- Python formatter
+        'isort',                 -- Python import sorter
+        'flake8',                -- Python linter
+        'markdownlint',          -- Markdown linter
+        'google-java-format',    -- Java formatter
+      })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
@@ -405,7 +459,20 @@ local plugins = {
     opts = {
       formatters_by_ft = {
         lua = { 'stylua' },
-        -- Add more formatters here
+        -- JavaScript/TypeScript/React
+        javascript = { 'prettier' },
+        typescript = { 'prettier' },
+        javascriptreact = { 'prettier' },
+        typescriptreact = { 'prettier' },
+        json = { 'prettier' },
+        html = { 'prettier' },
+        css = { 'prettier' },
+        -- Python
+        python = { 'isort', 'black' },
+        -- Java
+        java = { 'google_java_format' },
+        -- Markdown
+        markdown = { 'prettier' },
       },
       format_on_save = { timeout_ms = 500, lsp_format = 'fallback' },
     },
@@ -700,10 +767,16 @@ local plugins = {
           'vimdoc',
           'javascript',
           'typescript',
+          'tsx',
           'python',
           'html',
           'css',
           'json',
+          'java',
+          'yaml',
+          'regex',
+          'markdown_inline',
+          'jsdoc',
         },
         auto_install = true,
         highlight = { enable = true },
