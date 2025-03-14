@@ -9,18 +9,19 @@ vim.opt.rtp:prepend(lazypath)
 -- Plugin specifications
 local plugins = {
   -- Core plugins
-  'tpope/vim-sleuth',                                -- Detect tabstop and shiftwidth automatically
+  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   { 'folke/which-key.nvim', event = 'VimEnter', opts = { delay = 0 } },
-  
+
   -- Git integration
-  { 'lewis6991/gitsigns.nvim', 
-    opts = { 
-      signs = { 
-        add = { text = '+' }, 
-        change = { text = '~' }, 
-        delete = { text = '_' }, 
-        topdelete = { text = '‾' }, 
-        changedelete = { text = '~' } 
+  {
+    'lewis6991/gitsigns.nvim',
+    opts = {
+      signs = {
+        add = { text = '+' },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
@@ -29,60 +30,83 @@ local plugins = {
           opts.buffer = bufnr
           vim.keymap.set(mode, l, r, opts)
         end
-        
+
         -- Navigation
         map('n', ']c', function()
-          if vim.wo.diff then return ']c' end
-          vim.schedule(function() gs.next_hunk() end)
+          if vim.wo.diff then
+            return ']c'
+          end
+          vim.schedule(function()
+            gs.next_hunk()
+          end)
           return '<Ignore>'
-        end, {expr=true, desc='Next hunk'})
-        
+        end, { expr = true, desc = 'Next hunk' })
+
         map('n', '[c', function()
-          if vim.wo.diff then return '[c' end
-          vim.schedule(function() gs.prev_hunk() end)
+          if vim.wo.diff then
+            return '[c'
+          end
+          vim.schedule(function()
+            gs.prev_hunk()
+          end)
           return '<Ignore>'
-        end, {expr=true, desc='Previous hunk'})
-        
+        end, { expr = true, desc = 'Previous hunk' })
+
         -- Actions
-        map('n', '<leader>hs', gs.stage_hunk, {desc='Stage hunk'})
-        map('n', '<leader>hr', gs.reset_hunk, {desc='Reset hunk'})
-        map('v', '<leader>hs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end, {desc='Stage selected hunk'})
-        map('v', '<leader>hr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end, {desc='Reset selected hunk'})
-        map('n', '<leader>hS', gs.stage_buffer, {desc='Stage buffer'})
-        map('n', '<leader>hu', gs.undo_stage_hunk, {desc='Undo stage hunk'})
-        map('n', '<leader>hR', gs.reset_buffer, {desc='Reset buffer'})
-        map('n', '<leader>hp', gs.preview_hunk, {desc='Preview hunk'})
-        map('n', '<leader>hb', function() gs.blame_line{full=true} end, {desc='Blame line'})
-        map('n', '<leader>tb', gs.toggle_current_line_blame, {desc='Toggle blame'})
-        map('n', '<leader>hd', gs.diffthis, {desc='Diff this'})
-        map('n', '<leader>hD', function() gs.diffthis('~') end, {desc='Diff this ~'})
-        map('n', '<leader>td', gs.toggle_deleted, {desc='Toggle deleted'})
+        map('n', '<leader>hs', gs.stage_hunk, { desc = 'Stage hunk' })
+        map('n', '<leader>hr', gs.reset_hunk, { desc = 'Reset hunk' })
+        map('v', '<leader>hs', function()
+          gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
+        end, { desc = 'Stage selected hunk' })
+        map('v', '<leader>hr', function()
+          gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
+        end, { desc = 'Reset selected hunk' })
+        map('n', '<leader>hS', gs.stage_buffer, { desc = 'Stage buffer' })
+        map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'Undo stage hunk' })
+        map('n', '<leader>hR', gs.reset_buffer, { desc = 'Reset buffer' })
+        map('n', '<leader>hp', gs.preview_hunk, { desc = 'Preview hunk' })
+        map('n', '<leader>hb', function()
+          gs.blame_line { full = true }
+        end, { desc = 'Blame line' })
+        map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'Toggle blame' })
+        map('n', '<leader>hd', gs.diffthis, { desc = 'Diff this' })
+        map('n', '<leader>hD', function()
+          gs.diffthis '~'
+        end, { desc = 'Diff this ~' })
+        map('n', '<leader>td', gs.toggle_deleted, { desc = 'Toggle deleted' })
       end,
-    } 
+    },
   },
-  
+
   -- Fuzzy finder
-  { 'nvim-telescope/telescope.nvim', 
+  {
+    'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make', cond = function() return vim.fn.executable('make') == 1 end },
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = 'make',
+        cond = function()
+          return vim.fn.executable 'make' == 1
+        end,
+      },
       'nvim-telescope/telescope-ui-select.nvim',
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       require('telescope').setup {
         defaults = {
-          prompt_prefix = " ",
-          selection_caret = " ",
-          path_display = { "truncate" },
-          selection_strategy = "reset",
-          sorting_strategy = "ascending",
-          layout_strategy = "horizontal",
+          prompt_prefix = ' ',
+          selection_caret = ' ',
+          path_display = { 'truncate' },
+          selection_strategy = 'reset',
+          sorting_strategy = 'ascending',
+          layout_strategy = 'horizontal',
           layout_config = {
             horizontal = {
-              prompt_position = "top",
+              prompt_position = 'top',
               preview_width = 0.55,
               results_width = 0.8,
             },
@@ -97,33 +121,33 @@ local plugins = {
             i = {
               ['<C-u>'] = false,
               ['<C-d>'] = false,
-              ["<C-j>"] = require('telescope.actions').move_selection_next,
-              ["<C-k>"] = require('telescope.actions').move_selection_previous,
+              ['<C-j>'] = require('telescope.actions').move_selection_next,
+              ['<C-k>'] = require('telescope.actions').move_selection_previous,
             },
           },
-          file_ignore_patterns = { "node_modules", ".git/" },
+          file_ignore_patterns = { 'node_modules', '.git/' },
           vimgrep_arguments = {
-            "rg",
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
-            "--column",
-            "--smart-case",
-            "--hidden",
+            'rg',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+            '--hidden',
           },
         },
-        extensions = { 
+        extensions = {
           ['ui-select'] = function()
             return require('telescope.themes').get_dropdown()
-          end
-        }
+          end,
+        },
       }
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
-      
+
       -- Telescope keymaps
-      local builtin = require('telescope.builtin')
+      local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -140,17 +164,18 @@ local plugins = {
       end, { desc = '[/] Fuzzily search in current buffer' })
     end,
   },
-  
+
   -- Better buffer management
-  { 'akinsho/bufferline.nvim',
+  {
+    'akinsho/bufferline.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    version = "*",
+    version = '*',
     opts = {
       options = {
-        mode = "buffers",
-        numbers = "none",
-        diagnostics = "nvim_lsp",
-        separator_style = "slant",
+        mode = 'buffers',
+        numbers = 'none',
+        diagnostics = 'nvim_lsp',
+        separator_style = 'slant',
         show_buffer_close_icons = true,
         show_close_icon = true,
         color_icons = true,
@@ -167,21 +192,21 @@ local plugins = {
         tab_size = 18,
         offsets = {
           {
-            filetype = "NvimTree",
-            text = "File Explorer",
-            highlight = "Directory",
-            separator = true
-          }
+            filetype = 'NvimTree',
+            text = 'File Explorer',
+            highlight = 'Directory',
+            separator = true,
+          },
         },
         hover = {
           enabled = true,
           delay = 200,
-          reveal = {'close'}
+          reveal = { 'close' },
         },
-      }
+      },
     },
     config = function(_, opts)
-      require("bufferline").setup(opts)
+      require('bufferline').setup(opts)
       -- Bufferline keymaps
       vim.keymap.set('n', '<S-l>', '<cmd>BufferLineCycleNext<CR>', { desc = 'Next buffer' })
       vim.keymap.set('n', '<S-h>', '<cmd>BufferLineCyclePrev<CR>', { desc = 'Previous buffer' })
@@ -190,10 +215,11 @@ local plugins = {
       vim.keymap.set('n', '<leader>bs', '<cmd>BufferLineSortByDirectory<CR>', { desc = '[B]uffer [S]ort by directory' })
     end,
   },
-  
+
   -- LSP Support
   { 'folke/lazydev.nvim', ft = 'lua' },
-  { 'neovim/nvim-lspconfig',
+  {
+    'neovim/nvim-lspconfig',
     dependencies = {
       { 'williamboman/mason.nvim', opts = {} },
       'williamboman/mason-lspconfig.nvim',
@@ -210,7 +236,7 @@ local plugins = {
             mode = mode or 'n'
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
-          
+
           -- LSP keymaps
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -230,7 +256,7 @@ local plugins = {
           end, '[W]orkspace [L]ist Folders')
         end,
       })
-      
+
       -- Diagnostic configuration
       vim.diagnostic.config {
         severity_sort = true,
@@ -244,23 +270,20 @@ local plugins = {
           },
         } or {},
       }
-      
+
       -- Server configuration
-      local capabilities = vim.tbl_deep_extend('force', 
-        vim.lsp.protocol.make_client_capabilities(),
-        require('cmp_nvim_lsp').default_capabilities()
-      )
-      
+      local capabilities = vim.tbl_deep_extend('force', vim.lsp.protocol.make_client_capabilities(), require('cmp_nvim_lsp').default_capabilities())
+
       local servers = {
         lua_ls = {
           settings = {
             Lua = {
               completion = { callSnippet = 'Replace' },
               diagnostics = { globals = { 'vim' } },
-              workspace = { 
+              workspace = {
                 library = {
-                  [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                  [vim.fn.stdpath('config') .. '/lua'] = true,
+                  [vim.fn.expand '$VIMRUNTIME/lua'] = true,
+                  [vim.fn.stdpath 'config' .. '/lua'] = true,
                 },
                 checkThirdParty = false,
               },
@@ -270,12 +293,12 @@ local plugins = {
         },
         -- Add more language servers here
       }
-      
+
       -- Install servers and tools
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, { 'stylua' })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-      
+
       require('mason-lspconfig').setup {
         handlers = {
           function(server_name)
@@ -287,9 +310,10 @@ local plugins = {
       }
     end,
   },
-  
+
   -- Autocompletion
-  { 'hrsh7th/nvim-cmp',
+  {
+    'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
     dependencies = {
       'L3MON4D3/LuaSnip',
@@ -300,25 +324,29 @@ local plugins = {
       'rafamadriz/friendly-snippets',
     },
     config = function()
-      local cmp = require('cmp')
-      local luasnip = require('luasnip')
-      
+      local cmp = require 'cmp'
+      local luasnip = require 'luasnip'
+
       require('luasnip.loaders.from_vscode').lazy_load()
       luasnip.config.setup {}
-      
+
       cmp.setup {
-        snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
         completion = { completeopt = 'menu,menuone,noinsert' },
         formatting = {
           format = function(entry, vim_item)
             vim_item.menu = ({
-              nvim_lsp = "[LSP]",
-              luasnip = "[Snippet]",
-              buffer = "[Buffer]",
-              path = "[Path]",
+              nvim_lsp = '[LSP]',
+              luasnip = '[Snippet]',
+              buffer = '[Buffer]',
+              path = '[Path]',
             })[entry.source.name]
             return vim_item
-          end
+          end,
         },
         mapping = cmp.mapping.preset.insert {
           ['<C-n>'] = cmp.mapping.select_next_item(),
@@ -359,25 +387,33 @@ local plugins = {
       }
     end,
   },
-  
+
   -- Formatting
-  { 'stevearc/conform.nvim',
+  {
+    'stevearc/conform.nvim',
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
     keys = {
-      { '<leader>f', function() require('conform').format { async = true } end, desc = '[F]ormat buffer' },
+      {
+        '<leader>f',
+        function()
+          require('conform').format { async = true }
+        end,
+        desc = '[F]ormat buffer',
+      },
     },
     opts = {
-      formatters_by_ft = { 
+      formatters_by_ft = {
         lua = { 'stylua' },
         -- Add more formatters here
       },
       format_on_save = { timeout_ms = 500, lsp_format = 'fallback' },
     },
   },
-  
+
   -- UI Enhancements
-  { 'catppuccin/nvim',
+  {
+    'catppuccin/nvim',
     name = 'catppuccin',
     priority = 1000,
     config = function()
@@ -421,23 +457,23 @@ local plugins = {
       -- The colorscheme will be set by the settings module
     end,
   },
-  
+
   -- Additional themes
   { 'folke/tokyonight.nvim', lazy = true, priority = 1000 },
   { 'rose-pine/neovim', name = 'rose-pine', lazy = true, priority = 1000 },
   { 'EdenEast/nightfox.nvim', lazy = true, priority = 1000 },
   { 'rebelot/kanagawa.nvim', lazy = true, priority = 1000 },
-  
+
   -- Theme manager
   {
     'zaldih/themery.nvim',
     config = function()
-      require("themery").setup({
+      require('themery').setup {
         -- List of themes to use
         themes = {
           {
-            name = "Catppuccin Mocha",
-            colorscheme = "catppuccin",
+            name = 'Catppuccin Mocha',
+            colorscheme = 'catppuccin',
             before = [[
               vim.g.catppuccin_flavour = "mocha"
               require("catppuccin").setup({
@@ -446,8 +482,8 @@ local plugins = {
             ]],
           },
           {
-            name = "Catppuccin Mocha (Transparent)",
-            colorscheme = "catppuccin",
+            name = 'Catppuccin Mocha (Transparent)',
+            colorscheme = 'catppuccin',
             before = [[
               vim.g.catppuccin_flavour = "mocha"
               require("catppuccin").setup({
@@ -456,8 +492,8 @@ local plugins = {
             ]],
           },
           {
-            name = "Catppuccin Macchiato",
-            colorscheme = "catppuccin",
+            name = 'Catppuccin Macchiato',
+            colorscheme = 'catppuccin',
             before = [[
               vim.g.catppuccin_flavour = "macchiato"
               require("catppuccin").setup({
@@ -466,8 +502,8 @@ local plugins = {
             ]],
           },
           {
-            name = "Catppuccin Frappe",
-            colorscheme = "catppuccin",
+            name = 'Catppuccin Frappe',
+            colorscheme = 'catppuccin',
             before = [[
               vim.g.catppuccin_flavour = "frappe"
               require("catppuccin").setup({
@@ -476,8 +512,8 @@ local plugins = {
             ]],
           },
           {
-            name = "Catppuccin Latte",
-            colorscheme = "catppuccin",
+            name = 'Catppuccin Latte',
+            colorscheme = 'catppuccin',
             before = [[
               vim.g.catppuccin_flavour = "latte"
               require("catppuccin").setup({
@@ -486,52 +522,53 @@ local plugins = {
             ]],
           },
           {
-            name = "Tokyo Night",
-            colorscheme = "tokyonight",
+            name = 'Tokyo Night',
+            colorscheme = 'tokyonight',
           },
           {
-            name = "Tokyo Night Storm",
-            colorscheme = "tokyonight-storm",
+            name = 'Tokyo Night Storm',
+            colorscheme = 'tokyonight-storm',
           },
           {
-            name = "Tokyo Night Day",
-            colorscheme = "tokyonight-day",
+            name = 'Tokyo Night Day',
+            colorscheme = 'tokyonight-day',
           },
           {
-            name = "Rose Pine",
-            colorscheme = "rose-pine",
+            name = 'Rose Pine',
+            colorscheme = 'rose-pine',
           },
           {
-            name = "Rose Pine Moon",
-            colorscheme = "rose-pine-moon",
+            name = 'Rose Pine Moon',
+            colorscheme = 'rose-pine-moon',
           },
           {
-            name = "Rose Pine Dawn",
-            colorscheme = "rose-pine-dawn",
+            name = 'Rose Pine Dawn',
+            colorscheme = 'rose-pine-dawn',
           },
           {
-            name = "Nightfox",
-            colorscheme = "nightfox",
+            name = 'Nightfox',
+            colorscheme = 'nightfox',
           },
           {
-            name = "Duskfox",
-            colorscheme = "duskfox",
+            name = 'Duskfox',
+            colorscheme = 'duskfox',
           },
           {
-            name = "Kanagawa",
-            colorscheme = "kanagawa",
+            name = 'Kanagawa',
+            colorscheme = 'kanagawa',
           },
         },
         livePreview = true,
-      })
-      
+      }
+
       -- Add keymap to open Themery
       vim.keymap.set('n', '<leader>ts', '<cmd>Themery<CR>', { desc = '[T]heme [S]elector' })
     end,
   },
-  
+
   -- Modern UI components
-  { 'nvim-lualine/lualine.nvim',
+  {
+    'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('lualine').setup {
@@ -547,26 +584,24 @@ local plugins = {
           lualine_c = { { 'filename', path = 1 } },
           lualine_x = { 'encoding', 'fileformat', 'filetype' },
           lualine_y = { 'progress' },
-          lualine_z = { 'location' }
+          lualine_z = { 'location' },
         },
       }
     end,
   },
-  
-  { 'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
-    opts = {
-      indent = { char = '│' },
-      scope = { enabled = true },
-    },
-  },
-  
+
+  { 'lukas-reineke/indent-blankline.nvim', main = 'ibl', opts = {
+    indent = { char = '│' },
+    scope = { enabled = true },
+  } },
+
   -- File explorer
-  { 'nvim-tree/nvim-tree.lua',
+  {
+    'nvim-tree/nvim-tree.lua',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('nvim-tree').setup {
-        sort_by = "case_sensitive",
+        sort_by = 'case_sensitive',
         view = {
           width = 30,
           adaptive_size = true,
@@ -583,13 +618,13 @@ local plugins = {
             },
             glyphs = {
               git = {
-                unstaged = "✗",
-                staged = "✓",
-                unmerged = "",
-                renamed = "➜",
-                untracked = "★",
-                deleted = "",
-                ignored = "◌",
+                unstaged = '✗',
+                staged = '✓',
+                unmerged = '',
+                renamed = '➜',
+                untracked = '★',
+                deleted = '',
+                ignored = '◌',
               },
             },
           },
@@ -617,15 +652,12 @@ local plugins = {
       vim.keymap.set('n', '<leader>o', '<cmd>NvimTreeFocus<CR>', { desc = 'F[o]cus file explorer' })
     end,
   },
-  
-  { 'folke/todo-comments.nvim', 
-    event = 'VimEnter', 
-    dependencies = { 'nvim-lua/plenary.nvim' }, 
-    opts = { signs = false } 
-  },
-  
+
+  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+
   -- Mini plugins collection
-  { 'echasnovski/mini.nvim',
+  {
+    'echasnovski/mini.nvim',
     config = function()
       require('mini.ai').setup { n_lines = 500 }
       require('mini.surround').setup()
@@ -649,18 +681,29 @@ local plugins = {
       -- We're using lualine instead of mini.statusline
     end,
   },
-  
+
   -- Treesitter
-  { 'nvim-treesitter/nvim-treesitter',
+  {
+    'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     config = function()
       require('nvim-treesitter.configs').setup {
-        ensure_installed = { 
-          'bash', 'c', 'lua', 'markdown', 'vim', 'vimdoc',
-          'javascript', 'typescript', 'python', 'html', 'css', 'json'
+        ensure_installed = {
+          'bash',
+          'c',
+          'lua',
+          'markdown',
+          'vim',
+          'vimdoc',
+          'javascript',
+          'typescript',
+          'python',
+          'html',
+          'css',
+          'json',
         },
         auto_install = true,
         highlight = { enable = true },
@@ -709,9 +752,10 @@ local plugins = {
       }
     end,
   },
-  
+
   -- Modern UI enhancements
-  { 'folke/noice.nvim',
+  {
+    'folke/noice.nvim',
     event = 'VeryLazy',
     dependencies = {
       'MunifTanjim/nui.nvim',
@@ -736,8 +780,9 @@ local plugins = {
       }
     end,
   },
-  
-  { 'rcarriga/nvim-notify',
+
+  {
+    'rcarriga/nvim-notify',
     config = function()
       require('notify').setup {
         background_colour = '#000000',
@@ -745,11 +790,12 @@ local plugins = {
         max_width = 80,
         render = 'wrapped-compact',
       }
-      vim.notify = require('notify')
+      vim.notify = require 'notify'
     end,
   },
-  
-  { 'stevearc/dressing.nvim',
+
+  {
+    'stevearc/dressing.nvim',
     opts = function()
       return {
         input = {
@@ -770,28 +816,32 @@ local plugins = {
       }
     end,
   },
-  
-  { 'goolord/alpha-nvim',
+
+  {
+    'goolord/alpha-nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      local dashboard = require('alpha.themes.dashboard')
+      local dashboard = require 'alpha.themes.dashboard'
       dashboard.section.header.val = {
         [[                                                                       ]],
         [[                                                                       ]],
         [[                                                                       ]],
-        [[                                                                     ]],
-        [[       ████ ██████           █████      ██                     ]],
-        [[      ███████████             █████                             ]],
-        [[      █████████ ███████████████████ ███   ███████████   ]],
-        [[     █████████  ███    █████████████ █████ ██████████████   ]],
-        [[    █████████ ██████████ █████████ █████ █████ ████ █████   ]],
-        [[  ███████████ ███    ███ █████████ █████ █████ ████ █████  ]],
-        [[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
         [[                                                                       ]],
+        [[    ███╗   ██╗ ██████╗██╗     ███████╗██████╗                       ]],
+        [[    ████╗  ██║██╔════╝██║     ██╔════╝██╔══██╗                      ]],
+        [[    ██╔██╗ ██║██║     ██║     ███████╗██████╔╝                      ]],
+        [[    ██║╚██╗██║██║     ██║     ╚════██║██╔═══╝                       ]],
+        [[    ██║ ╚████║╚██████╗███████╗███████║██║                           ]],
+        [[    ╚═╝  ╚═══╝ ╚═════╝╚══════╝╚══════╝╚═╝                           ]],
+        [[    ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗             ]],
+        [[    ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║             ]],
+        [[    ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║             ]],
+        [[    ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║             ]],
+        [[    ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║             ]],
+        [[    ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝             ]],
         [[                                                                       ]],
         [[                                                                       ]],
       }
-      
       dashboard.section.buttons.val = {
         dashboard.button('f', '  Find file', ':Telescope find_files <CR>'),
         dashboard.button('e', '  New file', ':ene <BAR> startinsert <CR>'),
@@ -800,25 +850,26 @@ local plugins = {
         dashboard.button('c', '  Configuration', ':e $MYVIMRC <CR>'),
         dashboard.button('q', '  Quit Neovim', ':qa<CR>'),
       }
-      
-      dashboard.section.footer.val = 'Modern Neovim Configuration'
-      
+
+      dashboard.section.footer.val = 'NCLSP - Neovim Configuration Language Server'
+
       dashboard.config.opts.noautocmd = true
-      
+
       require('alpha').setup(dashboard.config)
     end,
   },
-  
+
   -- Terminal integration
-  { 'akinsho/toggleterm.nvim',
-    version = "*",
+  {
+    'akinsho/toggleterm.nvim',
+    version = '*',
     config = function()
       require('toggleterm').setup {
         size = function(term)
-          if term.direction == "horizontal" then
-            return 15  -- Set height to 15 lines (adjust as needed)
-          elseif term.direction == "vertical" then
-            return vim.o.columns * 0.4  -- 40% of screen width
+          if term.direction == 'horizontal' then
+            return 15 -- Set height to 15 lines (adjust as needed)
+          elseif term.direction == 'vertical' then
+            return vim.o.columns * 0.4 -- 40% of screen width
           end
         end,
         open_mapping = [[<c-`>]],
@@ -829,57 +880,58 @@ local plugins = {
         start_in_insert = true,
         insert_mappings = true,
         persist_size = true,
-        direction = 'horizontal',  -- Changed from 'float' to 'horizontal'
+        direction = 'horizontal', -- Changed from 'float' to 'horizontal'
         close_on_exit = true,
         shell = vim.o.shell,
         -- Remove the float_opts since we're using horizontal layout
       }
-      
+
       -- Add a function to toggle terminal with <C-j> as well
       function _G.toggle_terminal()
         local term = require('toggleterm.terminal').get(1)
         if term and term:is_open() then
           term:close()
         else
-          require("toggleterm").toggle(1, 15, vim.fn.getcwd(), "horizontal")
+          require('toggleterm').toggle(1, 15, vim.fn.getcwd(), 'horizontal')
         end
       end
-      
+
       -- Map the VSCode keybinding to toggle the terminal
-      vim.api.nvim_set_keymap('n', '<C-j>', '<cmd>lua toggle_terminal()<CR>', {noremap = true, silent = true})
-      vim.api.nvim_set_keymap('t', '<C-j>', '<cmd>lua toggle_terminal()<CR>', {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', '<C-j>', '<cmd>lua toggle_terminal()<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('t', '<C-j>', '<cmd>lua toggle_terminal()<CR>', { noremap = true, silent = true })
     end,
   },
-  
+
   -- Multi-cursor support (for VSCode-like multiple selections)
-  { 'mg979/vim-visual-multi',
-    branch = 'master',
-  },
-  
+  { 'mg979/vim-visual-multi', branch = 'master' },
+
   -- Import custom plugins
   { import = 'custom.plugins' },
-  
 }
 
 -- Plugin manager configuration
 local opts = {
-  ui = { 
-    icons = vim.g.have_nerd_font and {} or { 
-      cmd = '⌘', config = '🛠', event = '📅', ft = '📂', plugin = '🔌' 
+  ui = {
+    icons = vim.g.have_nerd_font and {} or {
+      cmd = '⌘',
+      config = '🛠',
+      event = '📅',
+      ft = '📂',
+      plugin = '🔌',
     },
-    border = "rounded",
+    border = 'rounded',
   },
   performance = {
     rtp = {
       disabled_plugins = {
-        "gzip",
-        "matchit",
-        "matchparen",
-        "netrwPlugin",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
-        "zipPlugin",
+        'gzip',
+        'matchit',
+        'matchparen',
+        'netrwPlugin',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'zipPlugin',
       },
     },
   },
