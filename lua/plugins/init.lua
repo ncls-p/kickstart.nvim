@@ -371,10 +371,8 @@ local plugins = {
         'rustfmt',               -- Rust formatter
         'goimports',             -- Go imports formatter
         'clang-format',          -- C/C++ formatter
-        'rubocop',               -- Ruby formatter/linter
         'php-cs-fixer',          -- PHP formatter
         'ktlint',                -- Kotlin formatter/linter
-        'terraform-fmt',         -- Terraform formatter
         'shfmt',                 -- Shell formatter
         
         -- Linters
@@ -382,7 +380,6 @@ local plugins = {
         'htmlhint',              -- HTML linter
         'stylelint',             -- CSS linter
         'golangci-lint',         -- Go linter
-        'cppcheck',              -- C/C++ linter
         'phpcs',                 -- PHP linter
         'tflint',                -- Terraform linter
         'yamllint',              -- YAML linter
@@ -554,7 +551,6 @@ local plugins = {
           go = { 'goimports' },
           c = { 'clang_format' },
           cpp = { 'clang_format' },
-          ruby = { 'rubocop' },
           php = { 'php_cs_fixer' },
           swift = { 'swiftformat' },
           kotlin = { 'ktlint' },
