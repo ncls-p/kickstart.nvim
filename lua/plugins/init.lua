@@ -373,7 +373,6 @@ local plugins = {
         'clang-format',          -- C/C++ formatter
         'rubocop',               -- Ruby formatter/linter
         'php-cs-fixer',          -- PHP formatter
-        'swiftformat',           -- Swift formatter
         'ktlint',                -- Kotlin formatter/linter
         'terraform-fmt',         -- Terraform formatter
         'shfmt',                 -- Shell formatter
