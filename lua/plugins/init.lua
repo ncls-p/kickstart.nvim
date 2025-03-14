@@ -292,7 +292,7 @@ local plugins = {
           },
         },
         -- JavaScript/TypeScript/React
-        typescript_language_server = {
+        tsserver = {
           settings = {
             typescript = {
               inlayHints = {
