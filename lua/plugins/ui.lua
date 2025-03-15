@@ -39,9 +39,15 @@ return {
           bufferline = true,
           indent_blankline = { enabled = true },
           mini = true,
+          navic = true,
+          mason = true,
+          noice = true,
+          notify = true,
+          lsp_trouble = true,
         },
       }
-      -- The colorscheme will be set by the settings module
+      -- Set colorscheme after setup
+      vim.cmd.colorscheme "catppuccin"
     end,
   },
 
@@ -160,19 +166,56 @@ return {
     config = function()
       require('lualine').setup {
         options = {
-          theme = 'catppuccin',
+          theme = 'auto',
           component_separators = { left = '', right = '' },
           section_separators = { left = '', right = '' },
           globalstatus = true,
+          disabled_filetypes = { 'alpha' },
         },
         sections = {
-          lualine_a = { 'mode' },
-          lualine_b = { 'branch', 'diff', 'diagnostics' },
-          lualine_c = { { 'filename', path = 1 } },
-          lualine_x = { 'encoding', 'fileformat', 'filetype' },
-          lualine_y = { 'progress' },
-          lualine_z = { 'location' },
+          lualine_a = { 
+            { 'mode', separator = { left = '' }, right_padding = 2 } 
+          },
+          lualine_b = { 
+            { 'branch', icon = '' },
+            { 'diff', 
+              symbols = { added = ' ', modified = ' ', removed = ' ' },
+              diff_color = {
+                added = { fg = '#98be65' },
+                modified = { fg = '#ECBE7B' },
+                removed = { fg = '#ec5f67' },
+              },
+            },
+            { 
+              'diagnostics',
+              sources = { 'nvim_diagnostic' },
+              symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' }
+            },
+          },
+          lualine_c = { 
+            { 'filename', path = 1, file_status = true, symbols = { modified = '●', readonly = '', unnamed = '[No Name]' } } 
+          },
+          lualine_x = { 
+            { 'encoding' },
+            { 'fileformat', symbols = { unix = ' ', dos = ' ', mac = ' '} },
+            { 'filetype', colored = true, icon_only = false },
+          },
+          lualine_y = { 
+            { 'progress', separator = { right = '' }, left_padding = 2 } 
+          },
+          lualine_z = { 
+            { 'location', separator = { right = '' }, left_padding = 2 } 
+          },
         },
+        inactive_sections = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = { { 'filename', path = 1 } },
+          lualine_x = { 'location' },
+          lualine_y = {},
+          lualine_z = {},
+        },
+        extensions = { 'neo-tree', 'lazy', 'mason', 'trouble' },
       }
     end,
   },
@@ -182,52 +225,97 @@ return {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
     opts = {
-      indent = { char = '│' },
-      scope = { enabled = true },
+      indent = { char = '│', highlight = "IblIndent" },
+      scope = { enabled = true, show_start = true, show_end = true },
     },
   },
 
   -- Dashboard
   {
-    'goolord/alpha-nvim',
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      local dashboard = require 'alpha.themes.dashboard'
-      dashboard.section.header.val = {
-        [[                                                                       ]],
-        [[                                                                       ]],
-        [[                                                                       ]],
-        [[                                                                       ]],
-        [[    ███╗   ██╗ ██████╗██╗     ███████╗██████╗                       ]],
-        [[    ████╗  ██║██╔════╝██║     ██╔════╝██╔══██╗                      ]],
-        [[    ██╔██╗ ██║██║     ██║     ███████╗██████╔╝                      ]],
-        [[    ██║╚██╗██║██║     ██║     ╚════██║██╔═══╝                       ]],
-        [[    ██║ ╚████║╚██████╗███████╗███████║██║                           ]],
-        [[    ╚═╝  ╚═══╝ ╚═════╝╚══════╝╚══════╝╚═╝                           ]],
-        [[    ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗             ]],
-        [[    ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║             ]],
-        [[    ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║             ]],
-        [[    ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║             ]],
-        [[    ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║             ]],
-        [[    ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝             ]],
-        [[                                                                       ]],
-        [[                                                                       ]],
-      }
-      dashboard.section.buttons.val = {
-        dashboard.button('f', '  Find file', ':Telescope find_files <CR>'),
-        dashboard.button('e', '  New file', ':ene <BAR> startinsert <CR>'),
-        dashboard.button('r', '  Recently used files', ':Telescope oldfiles <CR>'),
-        dashboard.button('t', '  Find text', ':Telescope live_grep <CR>'),
-        dashboard.button('c', '  Configuration', ':e $MYVIMRC <CR>'),
-        dashboard.button('q', '  Quit Neovim', ':qa<CR>'),
-      }
-
-      dashboard.section.footer.val = 'NCLSP - Neovim Configuration Language Server'
-
-      dashboard.config.opts.noautocmd = true
-
-      require('alpha').setup(dashboard.config)
+      local db = require("dashboard")
+      
+      db.setup({
+        theme = "hyper",
+        config = {
+          week_header = {
+            enable = true,
+          },
+          shortcut = {
+            { desc = "󰊳 Update", group = "@property", action = "Lazy update", key = "u" },
+            { desc = " Files", group = "Label", action = "Telescope find_files", key = "f" },
+            { desc = " Apps", group = "DiagnosticHint", action = "Telescope app", key = "a" },
+            { desc = " Recent", group = "Number", action = "Telescope oldfiles", key = "r" },
+            { desc = " Search", group = "Function", action = "Telescope live_grep", key = "t" },
+            { desc = " Config", group = "String", action = "e $MYVIMRC", key = "c" },
+            { desc = "󰗼 Exit", group = "Error", action = "qa", key = "q" },
+          },
+          project = { enable = true, limit = 8, icon = " ", label = "Recent Projects", action = "Telescope find_files cwd=" },
+          mru = { limit = 10, icon = " ", label = "Recent Files" },
+          footer = {
+            "",
+            "NCLS Neovim - Modern and Professional"
+          },
+        },
+      })
     end,
+  },
+
+  -- Buffer line (tabs)
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function()
+      require("bufferline").setup {
+        options = {
+          mode = "buffers",
+          indicator = {
+            icon = "▎",
+            style = "icon",
+          },
+          buffer_close_icon = "",
+          modified_icon = "●",
+          close_icon = "",
+          left_trunc_marker = "",
+          right_trunc_marker = "",
+          max_name_length = 18,
+          max_prefix_length = 15,
+          tab_size = 22,
+          diagnostics = "nvim_lsp",
+          diagnostics_indicator = function(count, level)
+            local icons = { error = " ", warning = " ", info = " ", hint = " " }
+            return " " .. icons[level] .. count
+          end,
+          offsets = {
+            {
+              filetype = "neo-tree",
+              text = "File Explorer",
+              text_align = "center",
+              separator = true,
+            }
+          },
+          color_icons = true,
+          separator_style = "thin",
+          always_show_bufferline = false,
+          hover = {
+            enabled = true,
+            delay = 200,
+            reveal = {'close'}
+          },
+        },
+      }
+    end,
+    keys = {
+      { "<leader>bp", "<Cmd>BufferLineCyclePrev<CR>", desc = "Previous buffer" },
+      { "<leader>bn", "<Cmd>BufferLineCycleNext<CR>", desc = "Next buffer" },
+      { "<leader>bc", "<Cmd>BufferLinePickClose<CR>", desc = "Close buffer" },
+      { "<leader>bse", "<Cmd>BufferLineSortByExtension<CR>", desc = "Sort by extension" },
+      { "<leader>bsd", "<Cmd>BufferLineSortByDirectory<CR>", desc = "Sort by directory" },
+    },
   },
 
   -- Enhanced UI components
@@ -246,6 +334,20 @@ return {
             ['vim.lsp.util.stylize_markdown'] = true,
             ['cmp.entry.get_documentation'] = true,
           },
+          signature = {
+            enabled = true,
+            auto_open = {
+              enabled = true,
+              trigger = true,
+              luasnip = true,
+              throttle = 50,
+            },
+          },
+          hover = {
+            enabled = true,
+            silent = false,
+            view = nil,
+          },
         },
         presets = {
           bottom_search = true,
@@ -253,6 +355,30 @@ return {
           long_message_to_split = true,
           inc_rename = false,
           lsp_doc_border = true,
+        },
+        cmdline = {
+          enabled = true,
+          view = "cmdline_popup",
+          format = {
+            cmdline = { icon = ">" },
+            search_down = { icon = "🔍⌄" },
+            search_up = { icon = "🔍⌃" },
+            filter = { icon = "$" },
+            lua = { icon = "☾" },
+            help = { icon = "?" },
+          },
+        },
+        views = {
+          cmdline_popup = {
+            border = {
+              style = "rounded",
+              padding = { 0, 1 },
+            },
+            filter_options = {},
+            win_options = {
+              winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+            },
+          },
         },
       }
     end,
@@ -266,7 +392,15 @@ return {
         background_colour = '#000000',
         timeout = 3000,
         max_width = 80,
-        render = 'wrapped-compact',
+        render = 'default',
+        stages = "fade",
+        icons = {
+          ERROR = "",
+          WARN = "",
+          INFO = "",
+          DEBUG = "",
+          TRACE = "✎",
+        },
       }
       vim.notify = require 'notify'
     end,
@@ -293,41 +427,197 @@ return {
       }
     end,
   },
+
+  -- Smooth scrolling
+  {
+    'karb94/neoscroll.nvim',
+    config = function()
+      require('neoscroll').setup({
+        mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>', '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
+        hide_cursor = true,
+        stop_eof = true,
+        respect_scrolloff = false,
+        cursor_scrolls_alone = true,
+        easing_function = "sine",
+        pre_hook = nil,
+        post_hook = nil,
+      })
+    end
+  },
+
+  -- Add a minimap
+  {
+    "gorbit99/codewindow.nvim",
+    config = function()
+      local codewindow = require('codewindow')
+      codewindow.setup({
+        active_in_terminals = false,
+        auto_enable = false,
+        exclude_filetypes = {
+          'help', 'dashboard', 'neo-tree', 'Trouble', 'lazy', 'mason', 'alpha',
+        },
+        max_minimap_height = nil,
+        max_lines = nil,
+        minimap_width = 15,
+        use_lsp = true,
+        use_treesitter = true,
+        use_git = true,
+        width_multiplier = 3,
+        z_index = 1,
+        show_cursor = true,
+        window_border = 'none',
+      })
+      -- Toggle minimap keymapping
+      vim.keymap.set('n', '<leader>mm', function()
+        codewindow.toggle_minimap()
+      end, { desc = 'Toggle Minimap' })
+    end,
+  },
+
+  -- Window animations
+  {
+    'anuvyklack/windows.nvim',
+    dependencies = {
+      'anuvyklack/middleclass',
+    },
+    config = function()
+      require('windows').setup({
+        autowidth = { 
+          enable = true,
+          winwidth = 0,
+          filetype = {
+            help = 2,
+          },
+        },
+        ignore = {
+          buftype = { 'quickfix' },
+          filetype = { 'NvimTree', 'neo-tree', 'dashboard', 'Outline', 'alpha', 'dashboard' }
+        },
+        animation = {
+          enable = true,
+          duration = 300,
+          fps = 60,
+          easing = "in_out_sine"
+        }
+      })
+    end
+  },
+
+  -- Better file explorer
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
+    config = function()
+      require("neo-tree").setup({
+        close_if_last_window = true,
+        window = {
+          position = "left",
+          width = 30,
+          mappings = {
+            ["<space>"] = "none",
+            ["l"] = "open",
+            ["h"] = "close_node",
+          }
+        },
+        filesystem = {
+          follow_current_file = {
+            enabled = true,
+          },
+          hijack_netrw_behavior = "open_current",
+          use_libuv_file_watcher = true,
+        },
+        default_component_configs = {
+          indent = {
+            with_expanders = true,
+            expander_collapsed = "",
+            expander_expanded = "",
+            expander_highlight = "NeoTreeExpander",
+          },
+          icon = {
+            folder_closed = "",
+            folder_open = "",
+            folder_empty = "󰜌",
+            default = "*",
+          },
+          modified = {
+            symbol = "●",
+            highlight = "NeoTreeModified",
+          },
+          git_status = {
+            symbols = {
+              added     = "✚",
+              modified  = "",
+              deleted   = "✖",
+              renamed   = "󰁕",
+              untracked = "",
+              ignored   = "",
+              unstaged  = "",
+              staged    = "",
+              conflict  = "",
+            }
+          },
+        },
+      })
+      
+      -- Key mappings
+      vim.keymap.set('n', '<leader>e', '<cmd>Neotree toggle<CR>', { desc = 'Toggle Explorer' })
+      vim.keymap.set('n', '<leader>o', '<cmd>Neotree focus<CR>', { desc = 'Focus Explorer' })
+    end,
+  },
+
+  -- LSP progress indicator
+  {
+    "j-hui/fidget.nvim",
+    tag = "legacy",
+    event = "LspAttach",
+    opts = {
+      text = {
+        spinner = "moon",
+      },
+      align = {
+        bottom = true,
+      },
+      window = {
+        relative = "editor",
+        blend = 0,
+      },
+    },
+  },
+
+  -- AI assistants
   {
     'yetone/avante.nvim',
     event = 'VeryLazy',
-    version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
+    version = false,
     opts = {
-      -- add any opts here
-      -- for example
       provider = 'copilot',
       openai = {
-        model = 'claude-3.5-sonnet', -- your desired model (or use gpt-4o, etc.)
-        temperature = 0, -- adjust if needed
+        model = 'claude-3.5-sonnet',
+        temperature = 0,
         max_tokens = 4096,
       },
     },
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = 'make',
-    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
       'stevearc/dressing.nvim',
       'nvim-lua/plenary.nvim',
       'MunifTanjim/nui.nvim',
-      --- The below dependencies are optional,
-      'echasnovski/mini.pick', -- for file_selector provider mini.pick
-      'nvim-telescope/telescope.nvim', -- for file_selector provider telescope
-      'hrsh7th/nvim-cmp', -- autocompletion for avante commands and mentions
-      'ibhagwan/fzf-lua', -- for file_selector provider fzf
-      'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
-      'zbirenbaum/copilot.lua', -- for providers='copilot'
+      'echasnovski/mini.pick',
+      'nvim-telescope/telescope.nvim',
+      'hrsh7th/nvim-cmp',
+      'ibhagwan/fzf-lua',
+      'nvim-tree/nvim-web-devicons',
+      'zbirenbaum/copilot.lua',
       {
-        -- support for image pasting
         'HakonHarnes/img-clip.nvim',
         event = 'VeryLazy',
         opts = {
-          -- recommended settings
           default = {
             embed_image_as_base64 = false,
             prompt_for_file_name = false,
@@ -338,7 +628,6 @@ return {
         },
       },
       {
-        -- Make sure to set this up properly if you have lazy=true
         'MeanderingProgrammer/render-markdown.nvim',
         opts = {
           file_types = { 'markdown', 'Avante' },
@@ -347,62 +636,4 @@ return {
       },
     },
   },
-  -- GitHub Copilot Chat
-  -- {
-  --   'CopilotC-Nvim/CopilotChat.nvim',
-  --   dependencies = {
-  --     { 'github/copilot.vim' },
-  --     { 'nvim-lua/plenary.nvim' },
-  --   },
-  --   build = function()
-  --     -- Only attempt to build tiktoken on macOS or Linux
-  --     if vim.fn.has('mac') == 1 or vim.fn.has('unix') == 1 then
-  --       vim.cmd('silent! !make tiktoken')
-  --     end
-  --   end,
-  --   opts = {
-  --     model = 'claude-3.7-sonnet', -- Set Claude 3.7 Sonnet as default model
-  --     debug = false,
-  --     show_help = true,
-  --     window = {
-  --       layout = 'vertical',
-  --       width = 0.5,
-  --       height = 0.5,
-  --       border = 'single',
-  --       title = 'Copilot Chat',
-  --     },
-  --     mappings = {
-  --       submit_prompt = {
-  --         normal = '<Leader>cc',
-  --         insert = '<C-s>',
-  --       },
-  --       close = {
-  --         normal = 'q',
-  --         insert = '<C-c>',
-  --       },
-  --     },
-  --   },
-  --   -- Lazy load on commands
-  --   cmd = {
-  --     'CopilotChat',
-  --     'CopilotChatOpen',
-  --     'CopilotChatToggle',
-  --     'CopilotChatExplain',
-  --     'CopilotChatFix',
-  --     'CopilotChatOptimize',
-  --     'CopilotChatTests',
-  --     'CopilotChatReview',
-  --     'CopilotChatAgents',
-  --     'CopilotChatModels',
-  --     'CopilotChatPrompts',
-  --   },
-  --   keys = {
-  --     { '<Leader>cc', '<cmd>CopilotChatToggle<CR>', desc = 'Toggle Copilot Chat' },
-  --     { '<Leader>ce', '<cmd>CopilotChatExplain<CR>', desc = 'Explain Code with Copilot' },
-  --     { '<Leader>cf', '<cmd>CopilotChatFix<CR>', desc = 'Fix Code with Copilot' },
-  --     { '<Leader>co', '<cmd>CopilotChatOptimize<CR>', desc = 'Optimize Code with Copilot' },
-  --     { '<Leader>ct', '<cmd>CopilotChatTests<CR>', desc = 'Generate Tests with Copilot' },
-  --     { '<Leader>cr', '<cmd>CopilotChatReview<CR>', desc = 'Review Code with Copilot' },
-  --   },
-  -- },
 }
