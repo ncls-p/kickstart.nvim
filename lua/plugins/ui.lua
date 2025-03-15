@@ -293,4 +293,60 @@ return {
       }
     end,
   },
+
+  -- GitHub Copilot Chat
+  {
+    'CopilotC-Nvim/CopilotChat.nvim',
+    dependencies = {
+      { 'github/copilot.vim' },
+      { 'nvim-lua/plenary.nvim' },
+    },
+    build = function()
+      -- Only attempt to build tiktoken on macOS or Linux
+      if vim.fn.has('mac') == 1 or vim.fn.has('unix') == 1 then
+        vim.cmd('silent! !make tiktoken')
+      end
+    end,
+    opts = {
+      model = 'claude-3.7-sonnet', -- Set Claude 3.7 Sonnet as default model
+      debug = false,
+      show_help = true,
+      window = {
+        layout = 'vertical',
+        width = 0.5,
+        height = 0.5,
+        border = 'single',
+        title = 'Copilot Chat',
+      },
+      mappings = {
+        submit_prompt = {
+          normal = '<Leader>cc',
+          insert = '<C-s>',
+        },
+        close = {
+          normal = 'q',
+          insert = '<C-c>',
+        },
+      },
+    },
+    -- Lazy load on commands
+    cmd = {
+      'CopilotChat',
+      'CopilotChatOpen',
+      'CopilotChatToggle',
+      'CopilotChatExplain',
+      'CopilotChatFix',
+      'CopilotChatOptimize',
+      'CopilotChatTests',
+      'CopilotChatReview',
+    },
+    keys = {
+      { '<Leader>cc', '<cmd>CopilotChatToggle<CR>', desc = 'Toggle Copilot Chat' },
+      { '<Leader>ce', '<cmd>CopilotChatExplain<CR>', desc = 'Explain Code with Copilot' },
+      { '<Leader>cf', '<cmd>CopilotChatFix<CR>', desc = 'Fix Code with Copilot' },
+      { '<Leader>co', '<cmd>CopilotChatOptimize<CR>', desc = 'Optimize Code with Copilot' },
+      { '<Leader>ct', '<cmd>CopilotChatTests<CR>', desc = 'Generate Tests with Copilot' },
+      { '<Leader>cr', '<cmd>CopilotChatReview<CR>', desc = 'Review Code with Copilot' },
+    },
+  },
 }
