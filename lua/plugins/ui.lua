@@ -288,9 +288,7 @@ return {
         select = {
           enabled = true,
           backend = { 'telescope', 'fzf', 'builtin' },
-          telescope = function()
-            return require('telescope.themes').get_dropdown()
-          end,
+          telescope = require('telescope.themes').get_dropdown(),
         },
       }
     end,
