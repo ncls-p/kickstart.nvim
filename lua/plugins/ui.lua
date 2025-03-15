@@ -178,13 +178,13 @@ return {
   },
 
   -- Indent guides
-  { 
-    'lukas-reineke/indent-blankline.nvim', 
-    main = 'ibl', 
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
     opts = {
       indent = { char = '│' },
       scope = { enabled = true },
-    } 
+    },
   },
 
   -- Dashboard
@@ -293,63 +293,116 @@ return {
       }
     end,
   },
-
-  -- GitHub Copilot Chat
   {
-    'CopilotC-Nvim/CopilotChat.nvim',
-    dependencies = {
-      { 'github/copilot.vim' },
-      { 'nvim-lua/plenary.nvim' },
-    },
-    build = function()
-      -- Only attempt to build tiktoken on macOS or Linux
-      if vim.fn.has('mac') == 1 or vim.fn.has('unix') == 1 then
-        vim.cmd('silent! !make tiktoken')
-      end
-    end,
+    'yetone/avante.nvim',
+    event = 'VeryLazy',
+    version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
     opts = {
-      model = 'claude-3.7-sonnet', -- Set Claude 3.7 Sonnet as default model
-      debug = false,
-      show_help = true,
-      window = {
-        layout = 'vertical',
-        width = 0.5,
-        height = 0.5,
-        border = 'single',
-        title = 'Copilot Chat',
-      },
-      mappings = {
-        submit_prompt = {
-          normal = '<Leader>cc',
-          insert = '<C-s>',
-        },
-        close = {
-          normal = 'q',
-          insert = '<C-c>',
-        },
+      -- add any opts here
+      -- for example
+      provider = 'copilot',
+      openai = {
+        model = 'claude-3.5-sonnet', -- your desired model (or use gpt-4o, etc.)
+        temperature = 0, -- adjust if needed
+        max_tokens = 4096,
       },
     },
-    -- Lazy load on commands
-    cmd = {
-      'CopilotChat',
-      'CopilotChatOpen',
-      'CopilotChatToggle',
-      'CopilotChatExplain',
-      'CopilotChatFix',
-      'CopilotChatOptimize',
-      'CopilotChatTests',
-      'CopilotChatReview',
-      'CopilotChatAgents',
-      'CopilotChatModels',
-      'CopilotChatPrompts',
-    },
-    keys = {
-      { '<Leader>cc', '<cmd>CopilotChatToggle<CR>', desc = 'Toggle Copilot Chat' },
-      { '<Leader>ce', '<cmd>CopilotChatExplain<CR>', desc = 'Explain Code with Copilot' },
-      { '<Leader>cf', '<cmd>CopilotChatFix<CR>', desc = 'Fix Code with Copilot' },
-      { '<Leader>co', '<cmd>CopilotChatOptimize<CR>', desc = 'Optimize Code with Copilot' },
-      { '<Leader>ct', '<cmd>CopilotChatTests<CR>', desc = 'Generate Tests with Copilot' },
-      { '<Leader>cr', '<cmd>CopilotChatReview<CR>', desc = 'Review Code with Copilot' },
+    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    build = 'make',
+    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'stevearc/dressing.nvim',
+      'nvim-lua/plenary.nvim',
+      'MunifTanjim/nui.nvim',
+      --- The below dependencies are optional,
+      'echasnovski/mini.pick', -- for file_selector provider mini.pick
+      'nvim-telescope/telescope.nvim', -- for file_selector provider telescope
+      'hrsh7th/nvim-cmp', -- autocompletion for avante commands and mentions
+      'ibhagwan/fzf-lua', -- for file_selector provider fzf
+      'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
+      'zbirenbaum/copilot.lua', -- for providers='copilot'
+      {
+        -- support for image pasting
+        'HakonHarnes/img-clip.nvim',
+        event = 'VeryLazy',
+        opts = {
+          -- recommended settings
+          default = {
+            embed_image_as_base64 = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+            },
+          },
+        },
+      },
+      {
+        -- Make sure to set this up properly if you have lazy=true
+        'MeanderingProgrammer/render-markdown.nvim',
+        opts = {
+          file_types = { 'markdown', 'Avante' },
+        },
+        ft = { 'markdown', 'Avante' },
+      },
     },
   },
+  -- GitHub Copilot Chat
+  -- {
+  --   'CopilotC-Nvim/CopilotChat.nvim',
+  --   dependencies = {
+  --     { 'github/copilot.vim' },
+  --     { 'nvim-lua/plenary.nvim' },
+  --   },
+  --   build = function()
+  --     -- Only attempt to build tiktoken on macOS or Linux
+  --     if vim.fn.has('mac') == 1 or vim.fn.has('unix') == 1 then
+  --       vim.cmd('silent! !make tiktoken')
+  --     end
+  --   end,
+  --   opts = {
+  --     model = 'claude-3.7-sonnet', -- Set Claude 3.7 Sonnet as default model
+  --     debug = false,
+  --     show_help = true,
+  --     window = {
+  --       layout = 'vertical',
+  --       width = 0.5,
+  --       height = 0.5,
+  --       border = 'single',
+  --       title = 'Copilot Chat',
+  --     },
+  --     mappings = {
+  --       submit_prompt = {
+  --         normal = '<Leader>cc',
+  --         insert = '<C-s>',
+  --       },
+  --       close = {
+  --         normal = 'q',
+  --         insert = '<C-c>',
+  --       },
+  --     },
+  --   },
+  --   -- Lazy load on commands
+  --   cmd = {
+  --     'CopilotChat',
+  --     'CopilotChatOpen',
+  --     'CopilotChatToggle',
+  --     'CopilotChatExplain',
+  --     'CopilotChatFix',
+  --     'CopilotChatOptimize',
+  --     'CopilotChatTests',
+  --     'CopilotChatReview',
+  --     'CopilotChatAgents',
+  --     'CopilotChatModels',
+  --     'CopilotChatPrompts',
+  --   },
+  --   keys = {
+  --     { '<Leader>cc', '<cmd>CopilotChatToggle<CR>', desc = 'Toggle Copilot Chat' },
+  --     { '<Leader>ce', '<cmd>CopilotChatExplain<CR>', desc = 'Explain Code with Copilot' },
+  --     { '<Leader>cf', '<cmd>CopilotChatFix<CR>', desc = 'Fix Code with Copilot' },
+  --     { '<Leader>co', '<cmd>CopilotChatOptimize<CR>', desc = 'Optimize Code with Copilot' },
+  --     { '<Leader>ct', '<cmd>CopilotChatTests<CR>', desc = 'Generate Tests with Copilot' },
+  --     { '<Leader>cr', '<cmd>CopilotChatReview<CR>', desc = 'Review Code with Copilot' },
+  --   },
+  -- },
 }
