@@ -339,6 +339,9 @@ return {
       'CopilotChatOptimize',
       'CopilotChatTests',
       'CopilotChatReview',
+      'CopilotChatAgents',
+      'CopilotChatModels',
+      'CopilotChatPrompts',
     },
     keys = {
       { '<Leader>cc', '<cmd>CopilotChatToggle<CR>', desc = 'Toggle Copilot Chat' },
