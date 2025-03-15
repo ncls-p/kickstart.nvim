@@ -522,9 +522,20 @@ return {
             ["<space>"] = "none",
             ["l"] = "open",
             ["h"] = "close_node",
+            ["."] = "toggle_hidden",
           }
         },
         filesystem = {
+          filtered_items = {
+            visible = false,
+            hide_dotfiles = true,
+            hide_gitignored = true,
+            hide_by_name = {
+              ".DS_Store",
+              "thumbs.db",
+              "node_modules",
+            },
+          },
           follow_current_file = {
             enabled = true,
           },
