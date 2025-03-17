@@ -227,10 +227,10 @@ return {
         formatting = {
           format = function(entry, vim_item)
             vim_item.menu = ({
-              nvim_lsp = '[LSP]',
-              luasnip = '[Snippet]',
-              buffer = '[Buffer]',
-              path = '[Path]',
+              nvim_lsp = '[🔧 LSP]',
+              luasnip = '[✂️ Snippet]',
+              buffer = '[📄 Buffer]',
+              path = '[🔍 Path]',
             })[entry.source.name]
             return vim_item
           end,
