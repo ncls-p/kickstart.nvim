@@ -10,7 +10,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- Import all the different plugin categories
   { import = 'plugins.core' },    -- Core functionality plugins
-  { import = 'plugins.ui' },      -- UI and appearance
+  { import = 'plugins.ui' },      -- UI and appearance (imports from plugins.ui.init)
   { import = 'plugins.lsp' },     -- LSP, completion, and formatting
   { import = 'plugins.editor' },  -- Editor tools (telescope, nvim-tree, etc.)
   

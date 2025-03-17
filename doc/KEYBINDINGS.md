@@ -1,170 +1,175 @@
-# Keyboard Shortcuts Reference
+# Neovim Keybindings
 
-This document provides a comprehensive list of all keyboard shortcuts available in ncls-p/kickstart.nvim.
+This document provides an overview of the keybindings configured in this Neovim setup.
 
-## Table of Contents
+## General
 
-- [VSCode-like Shortcuts](#vscode-like-shortcuts)
-- [Navigation](#navigation)
-- [Editing](#editing)
-- [File Operations](#file-operations)
-- [Window Management](#window-management)
-- [Buffer Management](#buffer-management)
-- [Tab Management](#tab-management)
-- [Terminal](#terminal)
-- [Diagnostics & LSP](#diagnostics--lsp)
-- [Search & Find](#search--find)
-- [Miscellaneous](#miscellaneous)
-
-## VSCode-like Shortcuts
-
-These shortcuts mimic the behavior of VSCode for a familiar experience.
-
-| Shortcut               | Mode             | Description                           |
-| ---------------------- | ---------------- | ------------------------------------- |
-| `⌘P` / `Ctrl+P`        | Normal, Insert   | Find files (Quick open)               |
-| `⌘⇧F` / `Ctrl+Shift+F` | Normal, Insert   | Find in files                         |
-| `⌘⇧P`                  | Normal, Insert   | Command palette                       |
-| `⌘/`                   | Normal, Visual   | Toggle comment                        |
-| `⌘S` / `Ctrl+S`        | Normal, Insert   | Save file                             |
-| `⌘W`                   | Normal, Insert   | Close buffer                          |
-| `⌘O`                   | Normal, Insert   | Open file                             |
-| `⌘B`                   | Normal, Insert   | Toggle sidebar (NvimTree)             |
-| `⌘D`                   | Normal           | Select next occurrence                |
-| `⌘⇧L`                  | Normal           | Select all occurrences                |
-| `Ctrl+⇧E`              | Normal           | Explorer (file tree)                  |
-| `Ctrl+,`               | Normal           | Open settings                         |
-| `F2`                   | Normal           | Rename symbol                         |
-| `F12`                  | Normal           | Go to definition                      |
-| `Shift+F12`            | Normal           | Go to references                      |
-| `Ctrl+Space`           | Insert           | Trigger completion                    |
-| `Ctrl+``               | Normal, Terminal | Toggle terminal (in horizontal split) |
-| `Ctrl+j`               | Normal, Terminal | Toggle terminal (alternative)         |
-| `Ctrl+Tab`             | Normal, Insert   | Next buffer                           |
-| `Ctrl+Shift+Tab`       | Normal, Insert   | Previous buffer                       |
-| `Ctrl+G`               | Normal           | Go to line                            |
+| Keybinding   | Description               |
+| ------------ | ------------------------- |
+| `<Space>`    | Leader key                |
+| `<Esc>`      | Clear search highlighting |
+| `<C-s>`      | Save file                 |
+| `<leader>qq` | Quit                      |
+| `<leader>qa` | Quit all                  |
+| `<leader>wq` | Write and quit            |
+| `<leader>so` | Source current file       |
 
 ## Navigation
 
-| Shortcut    | Mode   | Description                    |
-| ----------- | ------ | ------------------------------ |
-| `Ctrl+h`    | Normal | Move focus to left window      |
-| `Ctrl+j`    | Normal | Move focus to lower window     |
-| `Ctrl+k`    | Normal | Move focus to upper window     |
-| `Ctrl+l`    | Normal | Move focus to right window     |
-| `[d`        | Normal | Go to previous diagnostic      |
-| `]d`        | Normal | Go to next diagnostic          |
-| `<leader>q` | Normal | Open diagnostic quickfix list  |
-| `<leader>e` | Normal | Show diagnostic error messages |
+| Keybinding   | Description          |
+| ------------ | -------------------- |
+| `<leader>ff` | Find files           |
+| `<leader>fg` | Find in files (grep) |
+| `<leader>fb` | Find buffers         |
+| `<leader>fh` | Find help            |
+| `<leader>fr` | Find recent files    |
+| `<leader>fc` | Find commands        |
+| `<leader>ft` | Find TODOs           |
 
-## Editing
+## File Explorer
 
-| Shortcut | Mode   | Description                            |
-| -------- | ------ | -------------------------------------- |
-| `Alt+j`  | Normal | Move line down                         |
-| `Alt+k`  | Normal | Move line up                           |
-| `Alt+j`  | Visual | Move selection down                    |
-| `Alt+k`  | Visual | Move selection up                      |
-| `<`      | Visual | Decrease indent (stays in visual mode) |
-| `>`      | Visual | Increase indent (stays in visual mode) |
-| `Esc`    | Normal | Clear search highlighting              |
+| Keybinding  | Description          |
+| ----------- | -------------------- |
+| `<leader>e` | Toggle file explorer |
+| `<leader>o` | Focus file explorer  |
 
-## File Operations
+## Code Actions and Navigation
 
-| Shortcut     | Mode   | Description                |
-| ------------ | ------ | -------------------------- |
-| `<leader>fe` | Normal | Open file explorer (netrw) |
-| `<leader>so` | Normal | Source current file        |
+| Keybinding   | Description              |
+| ------------ | ------------------------ |
+| `<leader>ca` | Code actions             |
+| `<leader>cf` | Format code              |
+| `<leader>cr` | Rename symbol            |
+| `gd`         | Go to definition         |
+| `gD`         | Go to declaration        |
+| `gi`         | Go to implementation     |
+| `gr`         | Go to references         |
+| `K`          | Show hover documentation |
 
-## Window Management
+## VSCode-like Keybindings
 
-| Shortcut     | Mode   | Description            |
-| ------------ | ------ | ---------------------- |
-| `Ctrl+Up`    | Normal | Decrease window height |
-| `Ctrl+Down`  | Normal | Increase window height |
-| `Ctrl+Left`  | Normal | Decrease window width  |
-| `Ctrl+Right` | Normal | Increase window width  |
+| Keybinding  | Description                                  |
+| ----------- | -------------------------------------------- |
+| `<D-p>`     | Find files (VSCode: Cmd+P)                   |
+| `<D-F>`     | Find in files (VSCode: Cmd+Shift+F)          |
+| `<D-P>`     | Command palette (VSCode: Cmd+Shift+P)        |
+| `<D-s>`     | Save file (VSCode: Cmd+S)                    |
+| `<D-w>`     | Close buffer (VSCode: Cmd+W)                 |
+| `<D-o>`     | Open file (VSCode: Cmd+O)                    |
+| `<D-b>`     | Toggle sidebar (VSCode: Cmd+B)               |
+| `<D-/>`     | Toggle comment (VSCode: Cmd+/)               |
+| `<D-d>`     | Select next occurrence (VSCode: Cmd+D)       |
+| `<D-L>`     | Select all occurrences (VSCode: Cmd+Shift+L) |
+| `<F2>`      | Rename symbol (VSCode: F2)                   |
+| `<F12>`     | Go to definition (VSCode: F12)               |
+| `<S-F12>`   | Go to references (VSCode: Shift+F12)         |
+| `<C-Space>` | Trigger completion (VSCode: Ctrl+Space)      |
+| `<C-`>`     | Toggle terminal (VSCode: Ctrl+`)             |
+| `<C-Tab>`   | Next buffer (VSCode: Ctrl+Tab)               |
+| `<C-S-Tab>` | Previous buffer (VSCode: Ctrl+Shift+Tab)     |
 
-## Buffer Management
+## Comments
 
-| Shortcut     | Mode   | Description     |
-| ------------ | ------ | --------------- |
-| `<leader>bd` | Normal | Delete buffer   |
-| `<leader>bn` | Normal | Next buffer     |
-| `<leader>bp` | Normal | Previous buffer |
-| `<leader>bl` | Normal | List buffers    |
+| Keybinding  | Description                  |
+| ----------- | ---------------------------- |
+| `<leader>/` | Toggle comment               |
+| `gcc`       | Toggle comment (normal mode) |
+| `gc`        | Toggle comment (visual mode) |
 
-## Tab Management
+## Diagnostics
 
-| Shortcut     | Mode   | Description          |
-| ------------ | ------ | -------------------- |
-| `<leader>tn` | Normal | New tab              |
-| `<leader>tc` | Normal | Close tab            |
-| `<leader>to` | Normal | Close all other tabs |
-| `<leader>tl` | Normal | List tabs            |
-| `Shift+l`    | Normal | Next tab             |
-| `Shift+h`    | Normal | Previous tab         |
+| Keybinding  | Description                   |
+| ----------- | ----------------------------- |
+| `<leader>q` | Open diagnostic quickfix list |
+| `[d`        | Go to previous diagnostic     |
+| `]d`        | Go to next diagnostic         |
+| `<leader>d` | Show diagnostic message       |
 
 ## Terminal
 
-| Shortcut  | Mode             | Description                           |
-| --------- | ---------------- | ------------------------------------- |
-| `Ctrl+``  | Normal, Terminal | Toggle terminal (in horizontal split) |
-| `Ctrl+j`  | Normal, Terminal | Toggle terminal (alternative)         |
-| `Esc Esc` | Terminal         | Exit terminal mode                    |
+| Keybinding   | Description        |
+| ------------ | ------------------ |
+| `<leader>tt` | Open terminal      |
+| `<Esc><Esc>` | Exit terminal mode |
 
-## Diagnostics & LSP
+## Window Navigation
 
-| Shortcut    | Mode   | Description                    |
-| ----------- | ------ | ------------------------------ |
-| `<leader>e` | Normal | Show diagnostic error messages |
-| `<leader>q` | Normal | Open diagnostic quickfix list  |
-| `[d`        | Normal | Go to previous diagnostic      |
-| `]d`        | Normal | Go to next diagnostic          |
-| `F2`        | Normal | Rename symbol                  |
-| `F12`       | Normal | Go to definition               |
-| `Shift+F12` | Normal | Go to references               |
+| Keybinding | Description                    |
+| ---------- | ------------------------------ |
+| `<C-h>`    | Move focus to the left window  |
+| `<C-l>`    | Move focus to the right window |
+| `<C-j>`    | Move focus to the lower window |
+| `<C-k>`    | Move focus to the upper window |
 
-## Search & Find
+## Window Splitting
 
-| Shortcut               | Mode           | Description            |
-| ---------------------- | -------------- | ---------------------- |
-| `⌘P` / `Ctrl+P`        | Normal, Insert | Find files             |
-| `⌘⇧F` / `Ctrl+Shift+F` | Normal, Insert | Find in files          |
-| `Ctrl+G`               | Normal         | Find in current buffer |
+| Keybinding   | Description               |
+| ------------ | ------------------------- |
+| `<leader>ws` | Split window horizontally |
+| `<leader>wv` | Split window vertically   |
+| `<leader>wq` | Close window              |
 
-## Miscellaneous
+## Resize Windows
 
-| Shortcut     | Mode   | Description    |
-| ------------ | ------ | -------------- |
-| `<leader>qq` | Normal | Quit           |
-| `<leader>qa` | Normal | Quit all       |
-| `<leader>wq` | Normal | Write and quit |
+| Keybinding  | Description            |
+| ----------- | ---------------------- |
+| `<C-Up>`    | Decrease window height |
+| `<C-Down>`  | Increase window height |
+| `<C-Left>`  | Decrease window width  |
+| `<C-Right>` | Increase window width  |
 
-## Legend
+## Buffer Management
 
-- `⌘` (Command key on macOS)
-- `⇧` (Shift key)
-- `<leader>` is set to Space by default
-- `Ctrl` (Control key)
-- `Alt` (Option key on macOS)
+| Keybinding   | Description           |
+| ------------ | --------------------- |
+| `<leader>bc` | Close selected buffer |
+| `<leader>bp` | Previous buffer       |
+| `<leader>bn` | Next buffer           |
+| `<leader>bo` | Close other buffers   |
+| `[b`         | Previous buffer       |
+| `]b`         | Next buffer           |
 
-## Customizing Keybindings
+## Tab Management
 
-You can customize these keybindings by editing:
+| Keybinding   | Description      |
+| ------------ | ---------------- |
+| `<leader>tn` | New tab          |
+| `<leader>tc` | Close tab        |
+| `<leader>to` | Close other tabs |
+| `<S-l>`      | Next tab         |
+| `<S-h>`      | Previous tab     |
 
-1. General keymaps: `lua/keymaps/init.lua`
-2. VSCode-like keymaps: `lua/keymaps/vscode.lua`
+## Move Lines
 
-To add a new keybinding, use the `keymap` function:
+| Keybinding       | Description         |
+| ---------------- | ------------------- |
+| `<A-j>`          | Move line down      |
+| `<A-k>`          | Move line up        |
+| `<A-j>` (visual) | Move selection down |
+| `<A-k>` (visual) | Move selection up   |
 
-```lua
-keymap('mode', 'key', 'action', { desc = 'Description' })
-```
+## Indenting
 
-Where:
+| Keybinding   | Description                             |
+| ------------ | --------------------------------------- |
+| `<` (visual) | Decrease indent and stay in visual mode |
+| `>` (visual) | Increase indent and stay in visual mode |
 
-- `mode` is 'n' (normal), 'i' (insert), 'v' (visual), etc.
-- `key` is the key combination
-- `action` is the command to execute
-- `desc` is a description of what the keybinding does
+## UI Toggles
+
+| Keybinding   | Description                 |
+| ------------ | --------------------------- |
+| `<leader>uf` | Change filetype             |
+| `<leader>uz` | Toggle zen mode             |
+| `<leader>ut` | Toggle trouble              |
+| `<leader>us` | Toggle spellcheck           |
+| `<leader>uw` | Toggle word wrap            |
+| `<leader>ul` | Toggle invisible characters |
+| `<leader>mm` | Toggle minimap              |
+| `<leader>ts` | Theme selector              |
+
+## Copilot
+
+| Keybinding   | Description         |
+| ------------ | ------------------- |
+| `<leader>cc` | Toggle Copilot Chat |

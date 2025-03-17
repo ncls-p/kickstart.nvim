@@ -1,102 +1,93 @@
-# ncls-p/kickstart.nvim
+# Neovim Configuration
 
-A modular, clean, and feature-rich Neovim configuration based on [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim), customized with a focus on organization and better keybindings.
+A clean, modular, and easy-to-maintain Neovim configuration.
 
-## Features
+## Structure
 
-- **Modular Structure**: Configuration split into logical components
-- **VSCode-like Keybindings**: Familiar key mappings for an easier transition
-- **Core Settings Separated**: Options and autocommands cleanly organized
-- **Custom Plugin Configurations**: Enhanced plugin setup for better workflow
-
-## Directory Structure
+The configuration is organized into the following directories:
 
 ```
 .
-├── init.lua                # Main entry point
+├── init.lua                 # Main entry point
 ├── lua/
-│   ├── core/              # Core Neovim configuration
-│   │   ├── autocmds.lua   # Autocommands
-│   │   └── options.lua    # Basic options
-│   ├── custom/            # Custom configurations
-│   │   └── plugins/       # Custom plugin settings
-│   ├── keymaps/           # Keyboard mappings
-│   │   ├── init.lua       # General keymaps
-│   │   └── vscode.lua     # VSCode-like keymaps
-│   ├── kickstart/         # Original kickstart configurations
-│   │   └── plugins/       # Plugin configurations
-│   └── plugins/           # Plugin management
-│       └── init.lua       # Plugin loader
-└── doc/                   # Documentation
+│   ├── config/              # Main configuration modules
+│   │   ├── init.lua         # Main configuration setup
+│   │   └── copilot.lua      # Copilot-specific configuration
+│   ├── core/                # Core Neovim settings
+│   │   ├── options.lua      # Basic Neovim options
+│   │   └── autocmds.lua     # Autocommands
+│   ├── keymaps/             # Keybindings
+│   │   ├── init.lua         # Main keymaps module
+│   │   └── vscode.lua       # VSCode-like keybindings
+│   ├── plugins/             # Plugin configurations
+│   │   ├── init.lua         # Plugin manager setup
+│   │   ├── core/            # Core plugins
+│   │   │   ├── init.lua     # Core plugins initialization
+│   │   │   ├── keybindings.lua # Keybinding-related plugins
+│   │   │   ├── editing.lua  # Core editing plugins
+│   │   │   └── buffers.lua  # Buffer management plugins
+│   │   ├── editor/          # Editor plugins
+│   │   │   ├── init.lua     # Editor plugins initialization
+│   │   │   ├── git.lua      # Git integration
+│   │   │   ├── telescope.lua # Fuzzy finder
+│   │   │   ├── explorer.lua # File explorer
+│   │   │   ├── treesitter.lua # Syntax highlighting
+│   │   │   ├── terminal.lua # Terminal integration
+│   │   │   └── todo.lua     # Todo comments
+│   │   ├── lsp/             # LSP plugins
+│   │   │   ├── init.lua     # LSP plugins initialization
+│   │   │   ├── core.lua     # Core LSP configuration
+│   │   │   ├── servers.lua  # LSP server configurations
+│   │   │   ├── completion.lua # Autocompletion
+│   │   │   └── formatting.lua # Formatting
+│   │   └── ui/              # UI plugins
+│   │       ├── init.lua     # UI plugins initialization
+│   │       ├── themes.lua   # Themes and colorschemes
+│   │       ├── statusline.lua # Status line and bufferline
+│   │       ├── dashboard.lua # Dashboard
+│   │       ├── explorer.lua # File explorer
+│   │       ├── notifications.lua # Notifications
+│   │       └── windows.lua  # Window management
+│   ├── custom/              # Custom configurations
+│   │   └── plugins/         # Custom plugin configurations
+│   └── kickstart/           # Kickstart configurations
+│       └── plugins/         # Kickstart plugin configurations
+└── doc/                     # Documentation
+    └── KEYBINDINGS.md       # Keybindings documentation
 ```
 
-## Installation
+## Features
 
-### Prerequisites
+- Modular structure for easy maintenance
+- Clean separation of concerns
+- Easy to extend with new plugins and configurations
+- VSCode-like keybindings for a familiar experience
+- Comprehensive plugin setup for a modern development environment
 
-- Neovim 0.8.0+
-- Git
-- [ripgrep](https://github.com/BurntSushi/ripgrep) for telescope search
-- A Nerd Font (optional, for icons)
-- Language servers (for the languages you work with)
+## Usage
 
-### Setup
+1. Clone this repository to your Neovim configuration directory:
 
-1. Backup your existing Neovim configuration if you have one:
-
-   ```bash
-   mv ~/.config/nvim ~/.config/nvim.bak
-   mv ~/.local/share/nvim ~/.local/share/nvim.bak
-   mv ~/.local/state/nvim ~/.local/state/nvim.bak
-   mv ~/.cache/nvim ~/.cache/nvim.bak
+   ```
+   git clone https://github.com/yourusername/nvim-config.git ~/.config/nvim
    ```
 
-2. Clone this repository (one-line install):
+2. Start Neovim:
 
-   ```bash
-   # macOS/Linux
-   git clone https://github.com/ncls-p/kickstart.nvim.git ~/.config/nvim
-
-   # Windows (PowerShell)
-   git clone https://github.com/ncls-p/kickstart.nvim.git $env:LOCALAPPDATA\nvim
    ```
-
-   Or use this one-liner for macOS/Linux:
-
-   ```bash
-   rm -rf ~/.config/nvim && git clone https://github.com/ncls-p/kickstart.nvim.git ~/.config/nvim
-   ```
-
-3. Start Neovim:
-
-   ```bash
    nvim
    ```
 
-   The plugin manager will automatically install all plugins on the first run.
-
-## Key Features
-
-- **Modular Organization**: Each aspect of the configuration is in its own file for easy maintenance
-- **VSCode Compatibility**: Keybindings that will feel familiar to VSCode users
-- **Lazy Loading**: Plugins are loaded only when needed for fast startup
-- **Clean Core**: Essential settings are separate from plugin configurations
+3. The plugin manager will automatically install all plugins on the first run.
 
 ## Customization
 
-This configuration is designed to be extended. To add your own customizations:
+To add your own customizations:
 
-1. Modify files in the `lua/custom` directory for your personal plugins and settings
-2. Adjust keybindings in `lua/keymaps` directory
-3. Core Neovim options can be changed in `lua/core/options.lua`
-
-## Documentation
-
-Refer to the [KEYBINDINGS.md](./doc/KEYBINDINGS.md) file for a complete list of keyboard shortcuts and commands.
-
-## Credits
-
-This configuration is based on the excellent [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) project, with structural modifications and enhancements.
+1. For new plugins, add them to the appropriate file in `lua/plugins/` or create a new file in `lua/custom/plugins/`.
+2. For new keybindings, add them to `lua/keymaps/init.lua`.
+3. For new options, add them to `lua/core/options.lua`.
+4. For new autocommands, add them to `lua/core/autocmds.lua`.
 
 ## License
 
