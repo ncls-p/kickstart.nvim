@@ -1,60 +1,87 @@
 # Neovim Configuration
 
-A clean, modular, and easy-to-maintain Neovim configuration.
+A clean, modular, and well-organized Neovim configuration.
 
 ## Structure
 
-The configuration is organized into the following directories:
+This configuration is organized into the following modules:
 
-```
-.
-├── init.lua                 # Main entry point
-├── lua/
-│   ├── config/              # Main configuration modules
-│   │   ├── init.lua         # Main configuration setup
-│   │   └── copilot.lua      # Copilot-specific configuration
-│   ├── core/                # Core Neovim settings
-│   │   ├── options.lua      # Basic Neovim options
-│   │   └── autocmds.lua     # Autocommands
-│   ├── keymaps/             # Keybindings
-│   │   ├── init.lua         # Main keymaps module
-│   │   └── vscode.lua       # VSCode-like keybindings
-│   ├── plugins/             # Plugin configurations
-│   │   ├── init.lua         # Plugin manager setup
-│   │   ├── core/            # Core plugins
-│   │   │   ├── init.lua     # Core plugins initialization
-│   │   │   ├── keybindings.lua # Keybinding-related plugins
-│   │   │   ├── editing.lua  # Core editing plugins
-│   │   │   └── buffers.lua  # Buffer management plugins
-│   │   ├── editor/          # Editor plugins
-│   │   │   ├── init.lua     # Editor plugins initialization
-│   │   │   ├── git.lua      # Git integration
-│   │   │   ├── telescope.lua # Fuzzy finder
-│   │   │   ├── explorer.lua # File explorer
-│   │   │   ├── treesitter.lua # Syntax highlighting
-│   │   │   ├── terminal.lua # Terminal integration
-│   │   │   └── todo.lua     # Todo comments
-│   │   ├── lsp/             # LSP plugins
-│   │   │   ├── init.lua     # LSP plugins initialization
-│   │   │   ├── core.lua     # Core LSP configuration
-│   │   │   ├── servers.lua  # LSP server configurations
-│   │   │   ├── completion.lua # Autocompletion
-│   │   │   └── formatting.lua # Formatting
-│   │   └── ui/              # UI plugins
-│   │       ├── init.lua     # UI plugins initialization
-│   │       ├── themes.lua   # Themes and colorschemes
-│   │       ├── statusline.lua # Status line and bufferline
-│   │       ├── dashboard.lua # Dashboard
-│   │       ├── explorer.lua # File explorer
-│   │       ├── notifications.lua # Notifications
-│   │       └── windows.lua  # Window management
-│   ├── custom/              # Custom configurations
-│   │   └── plugins/         # Custom plugin configurations
-│   └── kickstart/           # Kickstart configurations
-│       └── plugins/         # Kickstart plugin configurations
-└── doc/                     # Documentation
-    └── KEYBINDINGS.md       # Keybindings documentation
-```
+### Core (`lua/core/`)
+
+Contains the basic Neovim settings, independent from plugins:
+
+- `init.lua` - Main core module that loads all core settings
+- `options.lua` - Basic Neovim options
+- `autocmds.lua` - Autocommands
+
+### Keymaps (`lua/keymaps/`)
+
+Contains all keyboard mappings:
+
+- `init.lua` - Main keymaps module with general keybindings
+- `vscode.lua` - VSCode-specific keybindings
+
+### Plugins (`lua/plugins/`)
+
+Contains all plugin configurations, organized by category:
+
+- `init.lua` - Main plugin module that loads all plugin specs
+- `core/` - Core functionality plugins
+  - `init.lua` - Core plugins loader
+  - `buffers.lua` - Buffer management plugins
+  - `editing.lua` - Text editing plugins
+  - `keybindings.lua` - Keybinding-related plugins
+- `ui/` - UI and appearance plugins
+  - `init.lua` - UI plugins loader
+  - `dashboard.lua` - Dashboard plugins
+  - `explorer.lua` - Explorer plugins
+  - `notifications.lua` - Notification plugins
+  - `statusline.lua` - Status line plugins
+  - `themes.lua` - Themes and colorschemes
+  - `windows.lua` - Window management plugins
+- `lsp/` - LSP, completion, and formatting
+  - `init.lua` - LSP plugins loader
+  - `completion.lua` - Completion plugins
+  - `core.lua` - Core LSP plugins
+  - `formatting.lua` - Code formatting plugins
+  - `servers.lua` - Language server configurations
+- `editor/` - Editor tools
+  - `init.lua` - Editor plugins loader
+  - `explorer.lua` - File explorer plugins
+  - `git.lua` - Git integration plugins
+  - `telescope.lua` - Telescope plugins
+  - `terminal.lua` - Terminal plugins
+  - `todo.lua` - Todo comment plugins
+  - `treesitter.lua` - Treesitter configs
+
+### Config (`lua/config/`)
+
+Contains custom configurations:
+
+- `init.lua` - Main config module
+- `copilot.lua` - Copilot configuration
+
+### Custom (`lua/custom/`)
+
+Contains language-specific settings:
+
+- `python.lua` - Python-specific settings
+- `plugins/` - Language-specific plugins
+  - `copilot-chat.lua` - GitHub Copilot Chat plugins
+  - `devops-tools.lua` - DevOps tool plugins
+  - `go-tools.lua` - Go language plugins
+  - `init.lua` - Language plugin loader
+  - `markdown-tools.lua` - Markdown plugins
+  - `python-tools.lua` - Python plugins
+  - `rust-tools.lua` - Rust plugins
+  - `scala-tools.lua` - Scala plugins
+  - `solidity-tools.lua` - Solidity plugins
+  - `typescript-tools.lua` - TypeScript plugins
+  - `web-tools.lua` - Web development plugins
+
+## Entry Point
+
+The main `init.lua` file in the root directory is the entry point that loads all modules in the correct order.
 
 ## Features
 
