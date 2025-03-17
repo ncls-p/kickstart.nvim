@@ -41,27 +41,27 @@ return {
         end, { expr = true, desc = 'Previous hunk' })
 
         -- Actions
-        map('n', '<leader>hs', gs.stage_hunk, { desc = 'Stage hunk' })
-        map('n', '<leader>hr', gs.reset_hunk, { desc = 'Reset hunk' })
+        map('n', '<leader>hs', gs.stage_hunk, { desc = '➕ Stage hunk' })
+        map('n', '<leader>hr', gs.reset_hunk, { desc = '↩️ Reset hunk' })
         map('v', '<leader>hs', function()
           gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = 'Stage selected hunk' })
+        end, { desc = '➕ Stage selected hunk' })
         map('v', '<leader>hr', function()
           gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = 'Reset selected hunk' })
-        map('n', '<leader>hS', gs.stage_buffer, { desc = 'Stage buffer' })
-        map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'Undo stage hunk' })
-        map('n', '<leader>hR', gs.reset_buffer, { desc = 'Reset buffer' })
-        map('n', '<leader>hp', gs.preview_hunk, { desc = 'Preview hunk' })
+        end, { desc = '↩️ Reset selected hunk' })
+        map('n', '<leader>hS', gs.stage_buffer, { desc = '📝 Stage buffer' })
+        map('n', '<leader>hu', gs.undo_stage_hunk, { desc = '⏪ Undo stage hunk' })
+        map('n', '<leader>hR', gs.reset_buffer, { desc = '🔄 Reset buffer' })
+        map('n', '<leader>hp', gs.preview_hunk, { desc = '👁️ Preview hunk' })
         map('n', '<leader>hb', function()
           gs.blame_line { full = true }
-        end, { desc = 'Blame line' })
-        map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'Toggle blame' })
-        map('n', '<leader>hd', gs.diffthis, { desc = 'Diff this' })
+        end, { desc = '🔍 Blame line' })
+        map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = '👤 Toggle blame' })
+        map('n', '<leader>hd', gs.diffthis, { desc = '📊 Diff this' })
         map('n', '<leader>hD', function()
           gs.diffthis '~'
-        end, { desc = 'Diff this ~' })
-        map('n', '<leader>td', gs.toggle_deleted, { desc = 'Toggle deleted' })
+        end, { desc = '📈 Diff this ~' })
+        map('n', '<leader>td', gs.toggle_deleted, { desc = '🗑️ Toggle deleted' })
       end,
     },
   },
@@ -136,20 +136,20 @@ return {
 
       -- Telescope keymaps
       local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '❓ [S]earch [H]elp' })
+      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '🔍 [S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '📝 [S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '🩺 [S]earch [D]iagnostics' })
+      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '🔤 [S]earch current [W]ord' })
+      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '⏱️ [S]earch [R]esume' })
+      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '🕒 [S]earch Recent Files ("." for repeat)' })
+      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '📑 [ ] Find existing buffers' })
       vim.keymap.set('n', '<leader>/', function()
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
           winblend = 10,
           previewer = false,
         })
-      end, { desc = '[/] Fuzzily search in current buffer' })
+      end, { desc = '🔎 [/] Fuzzily search in current buffer' })
     end,
   },
 
@@ -206,8 +206,8 @@ return {
           },
         },
       }
-      vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<CR>', { desc = 'Toggle file [E]xplorer' })
-      vim.keymap.set('n', '<leader>o', '<cmd>NvimTreeFocus<CR>', { desc = 'F[o]cus file explorer' })
+      vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<CR>', { desc = '🌲 Toggle file [E]xplorer' })
+      vim.keymap.set('n', '<leader>o', '<cmd>NvimTreeFocus<CR>', { desc = '👁️ F[o]cus file explorer' })
     end,
   },
 

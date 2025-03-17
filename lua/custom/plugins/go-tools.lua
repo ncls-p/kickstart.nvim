@@ -53,19 +53,19 @@ return {
       pattern = { "go", "gomod", "gosum", "gotmpl" },
       callback = function()
         -- Run
-        vim.keymap.set("n", "<leader>gr", "<cmd>GoRun<CR>", { buffer = true, desc = "Go Run" })
+        vim.keymap.set("n", "<leader>gr", "<cmd>GoRun<CR>", { buffer = true, desc = "🏃 Go Run" })
         -- Test
-        vim.keymap.set("n", "<leader>gt", "<cmd>GoTest<CR>", { buffer = true, desc = "Go Test" })
+        vim.keymap.set("n", "<leader>gt", "<cmd>GoTest<CR>", { buffer = true, desc = "🧪 Go Test" })
         -- Test Function
-        vim.keymap.set("n", "<leader>gtf", "<cmd>GoTestFunc<CR>", { buffer = true, desc = "Go Test Function" })
+        vim.keymap.set("n", "<leader>gtf", "<cmd>GoTestFunc<CR>", { buffer = true, desc = "🔬 Go Test Function" })
         -- Coverage
-        vim.keymap.set("n", "<leader>gc", "<cmd>GoCoverage<CR>", { buffer = true, desc = "Go Coverage" })
+        vim.keymap.set("n", "<leader>gc", "<cmd>GoCoverage<CR>", { buffer = true, desc = "📊 Go Coverage" })
         -- Alternate between implementation and test
-        vim.keymap.set("n", "<leader>ga", "<cmd>GoAlt<CR>", { buffer = true, desc = "Go Alternate" })
+        vim.keymap.set("n", "<leader>ga", "<cmd>GoAlt<CR>", { buffer = true, desc = "🔄 Go Alternate" })
         -- Generate interface stubs
-        vim.keymap.set("n", "<leader>gi", "<cmd>GoImpl<CR>", { buffer = true, desc = "Go Implement Interface" })
+        vim.keymap.set("n", "<leader>gi", "<cmd>GoImpl<CR>", { buffer = true, desc = "🧩 Go Implement Interface" })
         -- Add struct tags
-        vim.keymap.set("n", "<leader>gst", "<cmd>GoAddTags<CR>", { buffer = true, desc = "Go Add Tags" })
+        vim.keymap.set("n", "<leader>gst", "<cmd>GoAddTags<CR>", { buffer = true, desc = "🏷️ Go Add Tags" })
       end,
     })
   end,

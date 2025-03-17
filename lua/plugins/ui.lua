@@ -155,7 +155,7 @@ return {
       }
 
       -- Add keymap to open Themery
-      vim.keymap.set('n', '<leader>ts', '<cmd>Themery<CR>', { desc = '[T]heme [S]elector' })
+      vim.keymap.set('n', '<leader>ts', '<cmd>Themery<CR>', { desc = '🎨 [T]heme [S]elector' })
     end,
   },
 
@@ -247,12 +247,12 @@ return {
           },
           shortcut = {
             { desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
-            { desc = ' Files', group = 'Label', action = 'Telescope find_files', key = 'f' },
-            { desc = ' Apps', group = 'DiagnosticHint', action = 'Telescope app', key = 'a' },
-            { desc = ' Recent', group = 'Number', action = 'Telescope oldfiles', key = 'r' },
-            { desc = ' Search', group = 'Function', action = 'Telescope live_grep', key = 't' },
-            { desc = ' Config', group = 'String', action = 'e $MYVIMRC', key = 'c' },
-            { desc = '󰗼 Exit', group = 'Error', action = 'qa', key = 'q' },
+            { desc = '🔍 Files', group = 'Label', action = 'Telescope find_files', key = 'f' },
+            { desc = '🧩 Apps', group = 'DiagnosticHint', action = 'Telescope app', key = 'a' },
+            { desc = '🕒 Recent', group = 'Number', action = 'Telescope oldfiles', key = 'r' },
+            { desc = '🔎 Search', group = 'Function', action = 'Telescope live_grep', key = 't' },
+            { desc = '⚙️ Config', group = 'String', action = 'e $MYVIMRC', key = 'c' },
+            { desc = '🚪 Exit', group = 'Error', action = 'qa', key = 'q' },
           },
           project = { enable = true, limit = 8, icon = ' ', label = 'Recent Projects', action = 'Telescope find_files cwd=' },
           mru = { limit = 10, icon = ' ', label = 'Recent Files' },
@@ -311,11 +311,11 @@ return {
       }
     end,
     keys = {
-      { '<leader>bp', '<Cmd>BufferLineCyclePrev<CR>', desc = 'Previous buffer' },
-      { '<leader>bn', '<Cmd>BufferLineCycleNext<CR>', desc = 'Next buffer' },
-      { '<leader>bc', '<Cmd>BufferLinePickClose<CR>', desc = 'Close buffer' },
-      { '<leader>bse', '<Cmd>BufferLineSortByExtension<CR>', desc = 'Sort by extension' },
-      { '<leader>bsd', '<Cmd>BufferLineSortByDirectory<CR>', desc = 'Sort by directory' },
+      { '<leader>bp', '<Cmd>BufferLineCyclePrev<CR>', desc = '⬅️ Previous buffer' },
+      { '<leader>bn', '<Cmd>BufferLineCycleNext<CR>', desc = '➡️ Next buffer' },
+      { '<leader>bc', '<Cmd>BufferLinePickClose<CR>', desc = '❌ Close buffer' },
+      { '<leader>bse', '<Cmd>BufferLineSortByExtension<CR>', desc = '🔤 Sort by extension' },
+      { '<leader>bsd', '<Cmd>BufferLineSortByDirectory<CR>', desc = '📁 Sort by directory' },
     },
   },
 
@@ -477,7 +477,7 @@ return {
       -- Toggle minimap keymapping
       vim.keymap.set('n', '<leader>mm', function()
         codewindow.toggle_minimap()
-      end, { desc = 'Toggle Minimap' })
+      end, { desc = '🗺️ Toggle Minimap' })
     end,
   },
 
@@ -583,8 +583,8 @@ return {
       }
 
       -- Key mappings
-      vim.keymap.set('n', '<leader>e', '<cmd>Neotree toggle<CR>', { desc = 'Toggle Explorer' })
-      vim.keymap.set('n', '<leader>o', '<cmd>Neotree focus<CR>', { desc = 'Focus Explorer' })
+      vim.keymap.set('n', '<leader>e', '<cmd>Neotree toggle<CR>', { desc = '🌲 Toggle Explorer' })
+      vim.keymap.set('n', '<leader>o', '<cmd>Neotree focus<CR>', { desc = '👁️ Focus Explorer' })
     end,
   },
 

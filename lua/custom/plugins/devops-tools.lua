@@ -56,7 +56,7 @@ return {
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "yaml", "yml" },
         callback = function()
-          vim.keymap.set("n", "<leader>ys", "<cmd>Telescope yaml_schema<CR>", { buffer = true, desc = "[Y]AML [S]chema" })
+          vim.keymap.set("n", "<leader>ys", "<cmd>Telescope yaml_schema<CR>", { buffer = true, desc = "📄 [Y]AML [S]chema" })
         end,
       })
     end,
@@ -71,10 +71,10 @@ return {
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "terraform", "tf", "hcl" },
         callback = function()
-          vim.keymap.set("n", "<leader>ti", "<cmd>TerraformInit<CR>", { buffer = true, desc = "[T]erraform [I]nit" })
-          vim.keymap.set("n", "<leader>tv", "<cmd>TerraformValidate<CR>", { buffer = true, desc = "[T]erraform [V]alidate" })
-          vim.keymap.set("n", "<leader>tp", "<cmd>TerraformPlan<CR>", { buffer = true, desc = "[T]erraform [P]lan" })
-          vim.keymap.set("n", "<leader>ta", "<cmd>TerraformApply<CR>", { buffer = true, desc = "[T]erraform [A]pply" })
+          vim.keymap.set("n", "<leader>ti", "<cmd>TerraformInit<CR>", { buffer = true, desc = "🏗️ [T]erraform [I]nit" })
+          vim.keymap.set("n", "<leader>tv", "<cmd>TerraformValidate<CR>", { buffer = true, desc = "✅ [T]erraform [V]alidate" })
+          vim.keymap.set("n", "<leader>tp", "<cmd>TerraformPlan<CR>", { buffer = true, desc = "📝 [T]erraform [P]lan" })
+          vim.keymap.set("n", "<leader>ta", "<cmd>TerraformApply<CR>", { buffer = true, desc = "🚀 [T]erraform [A]pply" })
         end,
       })
     end,
@@ -100,11 +100,11 @@ return {
       })
       
       -- Add Docker keymaps
-      vim.keymap.set("n", "<leader>dc", "<cmd>DockerContainers<CR>", { desc = "[D]ocker [C]ontainers" })
-      vim.keymap.set("n", "<leader>di", "<cmd>DockerImages<CR>", { desc = "[D]ocker [I]mages" })
-      vim.keymap.set("n", "<leader>dn", "<cmd>DockerNetworks<CR>", { desc = "[D]ocker [N]etworks" })
-      vim.keymap.set("n", "<leader>dv", "<cmd>DockerVolumes<CR>", { desc = "[D]ocker [V]olumes" })
-      vim.keymap.set("n", "<leader>dp", "<cmd>DockerCompose<CR>", { desc = "[D]ocker Com[p]ose" })
+      vim.keymap.set("n", "<leader>dc", "<cmd>DockerContainers<CR>", { desc = "🐳 [D]ocker [C]ontainers" })
+      vim.keymap.set("n", "<leader>di", "<cmd>DockerImages<CR>", { desc = "🖼️ [D]ocker [I]mages" })
+      vim.keymap.set("n", "<leader>dn", "<cmd>DockerNetworks<CR>", { desc = "🌐 [D]ocker [N]etworks" })
+      vim.keymap.set("n", "<leader>dv", "<cmd>DockerVolumes<CR>", { desc = "💾 [D]ocker [V]olumes" })
+      vim.keymap.set("n", "<leader>dp", "<cmd>DockerCompose<CR>", { desc = "📦 [D]ocker Com[p]ose" })
     end,
   },
   
@@ -120,11 +120,11 @@ return {
       })
       
       -- Add Kubernetes keymaps
-      vim.keymap.set("n", "<leader>kc", "<cmd>K8sContexts<CR>", { desc = "[K]8s [C]ontexts" })
-      vim.keymap.set("n", "<leader>kn", "<cmd>K8sNamespaces<CR>", { desc = "[K]8s [N]amespaces" })
-      vim.keymap.set("n", "<leader>kp", "<cmd>K8sPods<CR>", { desc = "[K]8s [P]ods" })
-      vim.keymap.set("n", "<leader>kd", "<cmd>K8sDescribe<CR>", { desc = "[K]8s [D]escribe" })
-      vim.keymap.set("n", "<leader>kl", "<cmd>K8sLogs<CR>", { desc = "[K]8s [L]ogs" })
+      vim.keymap.set("n", "<leader>kc", "<cmd>K8sContexts<CR>", { desc = "☸️ [K]8s [C]ontexts" })
+      vim.keymap.set("n", "<leader>kn", "<cmd>K8sNamespaces<CR>", { desc = "🔍 [K]8s [N]amespaces" })
+      vim.keymap.set("n", "<leader>kp", "<cmd>K8sPods<CR>", { desc = "🔄 [K]8s [P]ods" })
+      vim.keymap.set("n", "<leader>kd", "<cmd>K8sDescribe<CR>", { desc = "📋 [K]8s [D]escribe" })
+      vim.keymap.set("n", "<leader>kl", "<cmd>K8sLogs<CR>", { desc = "📜 [K]8s [L]ogs" })
     end,
   },
   
@@ -154,8 +154,8 @@ return {
           require("metals").initialize_or_attach(metals_config)
           
           -- Scala-specific keymaps
-          vim.keymap.set("n", "<leader>mc", require("metals").commands, { buffer = true, desc = "[M]etals [C]ommands" })
-          vim.keymap.set("n", "<leader>mt", require("metals").toggle_setting, { buffer = true, desc = "[M]etals [T]oggle Setting" })
+          vim.keymap.set("n", "<leader>mc", require("metals").commands, { buffer = true, desc = "⚙️ [M]etals [C]ommands" })
+          vim.keymap.set("n", "<leader>mt", require("metals").toggle_setting, { buffer = true, desc = "🔄 [M]etals [T]oggle Setting" })
         end,
       })
     end,

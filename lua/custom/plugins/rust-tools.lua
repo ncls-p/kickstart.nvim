@@ -13,17 +13,17 @@ return {
       server = {
         on_attach = function(_, bufnr)
           -- Hover actions
-          vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr, desc = "Rust Hover Actions" })
+          vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr, desc = "ℹ️ Rust Hover Actions" })
           -- Code action groups
-          vim.keymap.set("n", "<leader>ra", rt.code_action_group.code_action_group, { buffer = bufnr, desc = "Rust Code Actions" })
+          vim.keymap.set("n", "<leader>ra", rt.code_action_group.code_action_group, { buffer = bufnr, desc = "🔧 Rust Code Actions" })
           -- Run
-          vim.keymap.set("n", "<leader>rr", "<cmd>RustRunnables<CR>", { buffer = bufnr, desc = "Rust Runnables" })
+          vim.keymap.set("n", "<leader>rr", "<cmd>RustRunnables<CR>", { buffer = bufnr, desc = "🏃 Rust Runnables" })
           -- Expand macro
-          vim.keymap.set("n", "<leader>rm", rt.expand_macro.expand_macro, { buffer = bufnr, desc = "Expand Rust Macro" })
+          vim.keymap.set("n", "<leader>rm", rt.expand_macro.expand_macro, { buffer = bufnr, desc = "🔍 Expand Rust Macro" })
           -- Open Cargo.toml
-          vim.keymap.set("n", "<leader>rc", rt.open_cargo_toml.open_cargo_toml, { buffer = bufnr, desc = "Open Cargo.toml" })
+          vim.keymap.set("n", "<leader>rc", rt.open_cargo_toml.open_cargo_toml, { buffer = bufnr, desc = "📦 Open Cargo.toml" })
           -- Parent module
-          vim.keymap.set("n", "<leader>rp", rt.parent_module.parent_module, { buffer = bufnr, desc = "Go to Parent Module" })
+          vim.keymap.set("n", "<leader>rp", rt.parent_module.parent_module, { buffer = bufnr, desc = "⬆️ Go to Parent Module" })
         end,
         settings = {
           ["rust-analyzer"] = {

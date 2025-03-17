@@ -17,7 +17,7 @@ return {
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "markdown",
       callback = function()
-        vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", { buffer = true, desc = "Toggle [M]arkdown [P]review" })
+        vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", { buffer = true, desc = "👁️ Toggle [M]arkdown [P]review" })
       end,
     })
   end,
