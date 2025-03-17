@@ -120,11 +120,11 @@ return {
       })
       
       -- Add Kubernetes keymaps
-      vim.keymap.set("n", "<leader>kc", "<cmd>K8sContexts<CR>", { desc = "☸️ [K]8s [C]ontexts" })
-      vim.keymap.set("n", "<leader>kn", "<cmd>K8sNamespaces<CR>", { desc = "🔍 [K]8s [N]amespaces" })
-      vim.keymap.set("n", "<leader>kp", "<cmd>K8sPods<CR>", { desc = "🔄 [K]8s [P]ods" })
-      vim.keymap.set("n", "<leader>kd", "<cmd>K8sDescribe<CR>", { desc = "📋 [K]8s [D]escribe" })
-      vim.keymap.set("n", "<leader>kl", "<cmd>K8sLogs<CR>", { desc = "📜 [K]8s [L]ogs" })
+      vim.keymap.set("n", "<leader>kc", "<cmd>K8sContexts<CR>", { desc = "☸️ [K]ubernetes [C]ontexts" })
+      vim.keymap.set("n", "<leader>kn", "<cmd>K8sNamespaces<CR>", { desc = "🔍 [K]ubernetes [N]amespaces" })
+      vim.keymap.set("n", "<leader>kp", "<cmd>K8sPods<CR>", { desc = "🚀 [K]ubernetes [P]ods" })
+      vim.keymap.set("n", "<leader>kd", "<cmd>K8sDescribe<CR>", { desc = "📋 [K]ubernetes [D]escribe" })
+      vim.keymap.set("n", "<leader>kl", "<cmd>K8sLogs<CR>", { desc = "📜 [K]ubernetes [L]ogs" })
     end,
   },
   
