@@ -396,11 +396,11 @@ return {
         render = 'default',
         stages = 'fade',
         icons = {
-          ERROR = '',
-          WARN = '',
-          INFO = '',
-          DEBUG = '',
-          TRACE = '✎',
+          ERROR = '❌',
+          WARN = '⚠️',
+          INFO = 'ℹ️',
+          DEBUG = '🔧',
+          TRACE = '📝',
         },
       }
       vim.notify = require 'notify'
@@ -414,7 +414,7 @@ return {
       return {
         input = {
           enabled = true,
-          default_prompt = '➤ ',
+          default_prompt = '🔍 ',
           win_options = {
             winblend = 10,
             winhighlight = 'Normal:Normal,NormalNC:Normal',
@@ -557,26 +557,26 @@ return {
             expander_highlight = 'NeoTreeExpander',
           },
           icon = {
-            folder_closed = '',
-            folder_open = '',
-            folder_empty = '󰜌',
-            default = '*',
+            folder_closed = '📁',
+            folder_open = '📂',
+            folder_empty = '📄',
+            default = '📄',
           },
           modified = {
-            symbol = '●',
+            symbol = '✏️',
             highlight = 'NeoTreeModified',
           },
           git_status = {
             symbols = {
-              added = '✚',
-              modified = '',
-              deleted = '✖',
-              renamed = '󰁕',
-              untracked = '',
-              ignored = '',
-              unstaged = '',
-              staged = '',
-              conflict = '',
+              added = '✅',
+              modified = '📝',
+              deleted = '❌',
+              renamed = '🔄',
+              untracked = '❓',
+              ignored = '⚫',
+              unstaged = '📌',
+              staged = '✓',
+              conflict = '⚠️',
             },
           },
         },

@@ -28,7 +28,7 @@ return {
             gs.next_hunk()
           end)
           return '<Ignore>'
-        end, { expr = true, desc = 'Next hunk' })
+        end, { expr = true, desc = '⬇️ Next hunk' })
 
         map('n', '[c', function()
           if vim.wo.diff then
@@ -38,7 +38,7 @@ return {
             gs.prev_hunk()
           end)
           return '<Ignore>'
-        end, { expr = true, desc = 'Previous hunk' })
+        end, { expr = true, desc = '⬆️ Previous hunk' })
 
         -- Actions
         map('n', '<leader>hs', gs.stage_hunk, { desc = '➕ Stage hunk' })
@@ -216,7 +216,18 @@ return {
     'folke/todo-comments.nvim', 
     event = 'VimEnter', 
     dependencies = { 'nvim-lua/plenary.nvim' }, 
-    opts = { signs = false } 
+    opts = { 
+      signs = false,
+      keywords = {
+        FIX = { icon = "🔧", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+        TODO = { icon = "📝", color = "info" },
+        HACK = { icon = "⚠️", color = "warning" },
+        WARN = { icon = "⚠️", color = "warning", alt = { "WARNING", "XXX" } },
+        PERF = { icon = "🚀", color = "default", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+        NOTE = { icon = "📌", color = "hint", alt = { "INFO" } },
+        TEST = { icon = "🧪", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+      },
+    } 
   },
 
   -- Treesitter
@@ -350,8 +361,8 @@ return {
       end
 
       -- Map the VSCode keybinding to toggle the terminal
-      vim.api.nvim_set_keymap('n', '<C-j>', '<cmd>lua toggle_terminal()<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('t', '<C-j>', '<cmd>lua toggle_terminal()<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<C-j>', '<cmd>lua toggle_terminal()<CR>', { noremap = true, silent = true, desc = "🖥️ Toggle Terminal" })
+      vim.api.nvim_set_keymap('t', '<C-j>', '<cmd>lua toggle_terminal()<CR>', { noremap = true, silent = true, desc = "🖥️ Toggle Terminal" })
     end,
   },
 }

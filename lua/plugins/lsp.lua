@@ -47,14 +47,14 @@ return {
       vim.diagnostic.config {
         severity_sort = true,
         float = { border = 'rounded' },
-        signs = vim.g.have_nerd_font and {
+        signs = {
           text = {
-            [vim.diagnostic.severity.ERROR] = '󰅚 ',
-            [vim.diagnostic.severity.WARN] = '󰀪 ',
-            [vim.diagnostic.severity.INFO] = '󰋽 ',
-            [vim.diagnostic.severity.HINT] = '󰌶 ',
+            [vim.diagnostic.severity.ERROR] = '❌ ',
+            [vim.diagnostic.severity.WARN] = '⚠️ ',
+            [vim.diagnostic.severity.INFO] = 'ℹ️ ',
+            [vim.diagnostic.severity.HINT] = '💡 ',
           },
-        } or {},
+        },
       }
 
       -- Server configuration
