@@ -14,4 +14,7 @@ require 'plugins'
 -- Setup VSCode-like keybindings
 keymaps.setup_vscode_keys()
 
+-- Add Copilot Chat toggle keybinding
+vim.keymap.set('n', '<leader>cc', '<cmd>CopilotChatToggle<CR>', { desc = 'Toggle Copilot Chat' })
+
 -- Additional user configuration can be added here
