@@ -477,7 +477,7 @@ return {
       -- Toggle minimap keymapping
       vim.keymap.set('n', '<leader>mm', function()
         codewindow.toggle_minimap()
-      end, { desc = '🗺️ Toggle Minimap' })
+      end, { desc = '🗺️ Toggle [M]ini[m]ap' })
     end,
   },
 
