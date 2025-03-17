@@ -47,7 +47,7 @@ return {
         },
       }
       -- Set colorscheme after setup
-      vim.cmd.colorscheme "catppuccin"
+      vim.cmd.colorscheme 'catppuccin'
     end,
   },
 
@@ -173,12 +173,13 @@ return {
           disabled_filetypes = { 'alpha' },
         },
         sections = {
-          lualine_a = { 
-            { 'mode', separator = { left = '' }, right_padding = 2 } 
+          lualine_a = {
+            { 'mode', separator = { left = '' }, right_padding = 2 },
           },
-          lualine_b = { 
+          lualine_b = {
             { 'branch', icon = '' },
-            { 'diff', 
+            {
+              'diff',
               symbols = { added = ' ', modified = ' ', removed = ' ' },
               diff_color = {
                 added = { fg = '#98be65' },
@@ -186,25 +187,25 @@ return {
                 removed = { fg = '#ec5f67' },
               },
             },
-            { 
+            {
               'diagnostics',
               sources = { 'nvim_diagnostic' },
-              symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' }
+              symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
             },
           },
-          lualine_c = { 
-            { 'filename', path = 1, file_status = true, symbols = { modified = '●', readonly = '', unnamed = '[No Name]' } } 
+          lualine_c = {
+            { 'filename', path = 1, file_status = true, symbols = { modified = '●', readonly = '', unnamed = '[No Name]' } },
           },
-          lualine_x = { 
+          lualine_x = {
             { 'encoding' },
-            { 'fileformat', symbols = { unix = ' ', dos = ' ', mac = ' '} },
+            { 'fileformat', symbols = { unix = ' ', dos = ' ', mac = ' ' } },
             { 'filetype', colored = true, icon_only = false },
           },
-          lualine_y = { 
-            { 'progress', separator = { right = '' }, left_padding = 2 } 
+          lualine_y = {
+            { 'progress', separator = { right = '' }, left_padding = 2 },
           },
-          lualine_z = { 
-            { 'location', separator = { right = '' }, left_padding = 2 } 
+          lualine_z = {
+            { 'location', separator = { right = '' }, left_padding = 2 },
           },
         },
         inactive_sections = {
@@ -225,7 +226,7 @@ return {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
     opts = {
-      indent = { char = '│', highlight = "IblIndent" },
+      indent = { char = '│', highlight = 'IblIndent' },
       scope = { enabled = true, show_start = true, show_end = true },
     },
   },
@@ -236,85 +237,85 @@ return {
     event = 'VimEnter',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      local db = require("dashboard")
-      
-      db.setup({
-        theme = "hyper",
+      local db = require 'dashboard'
+
+      db.setup {
+        theme = 'hyper',
         config = {
           week_header = {
             enable = true,
           },
           shortcut = {
-            { desc = "󰊳 Update", group = "@property", action = "Lazy update", key = "u" },
-            { desc = " Files", group = "Label", action = "Telescope find_files", key = "f" },
-            { desc = " Apps", group = "DiagnosticHint", action = "Telescope app", key = "a" },
-            { desc = " Recent", group = "Number", action = "Telescope oldfiles", key = "r" },
-            { desc = " Search", group = "Function", action = "Telescope live_grep", key = "t" },
-            { desc = " Config", group = "String", action = "e $MYVIMRC", key = "c" },
-            { desc = "󰗼 Exit", group = "Error", action = "qa", key = "q" },
+            { desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
+            { desc = ' Files', group = 'Label', action = 'Telescope find_files', key = 'f' },
+            { desc = ' Apps', group = 'DiagnosticHint', action = 'Telescope app', key = 'a' },
+            { desc = ' Recent', group = 'Number', action = 'Telescope oldfiles', key = 'r' },
+            { desc = ' Search', group = 'Function', action = 'Telescope live_grep', key = 't' },
+            { desc = ' Config', group = 'String', action = 'e $MYVIMRC', key = 'c' },
+            { desc = '󰗼 Exit', group = 'Error', action = 'qa', key = 'q' },
           },
-          project = { enable = true, limit = 8, icon = " ", label = "Recent Projects", action = "Telescope find_files cwd=" },
-          mru = { limit = 10, icon = " ", label = "Recent Files" },
+          project = { enable = true, limit = 8, icon = ' ', label = 'Recent Projects', action = 'Telescope find_files cwd=' },
+          mru = { limit = 10, icon = ' ', label = 'Recent Files' },
           footer = {
-            "",
-            "NCLS Neovim - Modern and Professional"
+            '',
+            'NCLS Neovim - Modern and Professional',
           },
         },
-      })
+      }
     end,
   },
 
   -- Buffer line (tabs)
   {
     'akinsho/bufferline.nvim',
-    version = "*",
+    version = '*',
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
-      require("bufferline").setup {
+      require('bufferline').setup {
         options = {
-          mode = "buffers",
+          mode = 'buffers',
           indicator = {
-            icon = "▎",
-            style = "icon",
+            icon = '▎',
+            style = 'icon',
           },
-          buffer_close_icon = "",
-          modified_icon = "●",
-          close_icon = "",
-          left_trunc_marker = "",
-          right_trunc_marker = "",
+          buffer_close_icon = '',
+          modified_icon = '●',
+          close_icon = '',
+          left_trunc_marker = '',
+          right_trunc_marker = '',
           max_name_length = 18,
           max_prefix_length = 15,
           tab_size = 22,
-          diagnostics = "nvim_lsp",
+          diagnostics = 'nvim_lsp',
           diagnostics_indicator = function(count, level)
-            local icons = { error = " ", warning = " ", info = " ", hint = " " }
-            return " " .. icons[level] .. count
+            local icons = { error = ' ', warning = ' ', info = ' ', hint = ' ' }
+            return ' ' .. icons[level] .. count
           end,
           offsets = {
             {
-              filetype = "neo-tree",
-              text = "File Explorer",
-              text_align = "center",
+              filetype = 'neo-tree',
+              text = 'File Explorer',
+              text_align = 'center',
               separator = true,
-            }
+            },
           },
           color_icons = true,
-          separator_style = "thin",
+          separator_style = 'thin',
           always_show_bufferline = false,
           hover = {
             enabled = true,
             delay = 200,
-            reveal = {'close'}
+            reveal = { 'close' },
           },
         },
       }
     end,
     keys = {
-      { "<leader>bp", "<Cmd>BufferLineCyclePrev<CR>", desc = "Previous buffer" },
-      { "<leader>bn", "<Cmd>BufferLineCycleNext<CR>", desc = "Next buffer" },
-      { "<leader>bc", "<Cmd>BufferLinePickClose<CR>", desc = "Close buffer" },
-      { "<leader>bse", "<Cmd>BufferLineSortByExtension<CR>", desc = "Sort by extension" },
-      { "<leader>bsd", "<Cmd>BufferLineSortByDirectory<CR>", desc = "Sort by directory" },
+      { '<leader>bp', '<Cmd>BufferLineCyclePrev<CR>', desc = 'Previous buffer' },
+      { '<leader>bn', '<Cmd>BufferLineCycleNext<CR>', desc = 'Next buffer' },
+      { '<leader>bc', '<Cmd>BufferLinePickClose<CR>', desc = 'Close buffer' },
+      { '<leader>bse', '<Cmd>BufferLineSortByExtension<CR>', desc = 'Sort by extension' },
+      { '<leader>bsd', '<Cmd>BufferLineSortByDirectory<CR>', desc = 'Sort by directory' },
     },
   },
 
@@ -358,25 +359,25 @@ return {
         },
         cmdline = {
           enabled = true,
-          view = "cmdline_popup",
+          view = 'cmdline_popup',
           format = {
-            cmdline = { icon = ">" },
-            search_down = { icon = "🔍⌄" },
-            search_up = { icon = "🔍⌃" },
-            filter = { icon = "$" },
-            lua = { icon = "☾" },
-            help = { icon = "?" },
+            cmdline = { icon = '>' },
+            search_down = { icon = '🔍⌄' },
+            search_up = { icon = '🔍⌃' },
+            filter = { icon = '$' },
+            lua = { icon = '☾' },
+            help = { icon = '?' },
           },
         },
         views = {
           cmdline_popup = {
             border = {
-              style = "rounded",
+              style = 'rounded',
               padding = { 0, 1 },
             },
             filter_options = {},
             win_options = {
-              winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+              winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
             },
           },
         },
@@ -393,13 +394,13 @@ return {
         timeout = 3000,
         max_width = 80,
         render = 'default',
-        stages = "fade",
+        stages = 'fade',
         icons = {
-          ERROR = "",
-          WARN = "",
-          INFO = "",
-          DEBUG = "",
-          TRACE = "✎",
+          ERROR = '',
+          WARN = '',
+          INFO = '',
+          DEBUG = '',
+          TRACE = '✎',
         },
       }
       vim.notify = require 'notify'
@@ -432,29 +433,35 @@ return {
   {
     'karb94/neoscroll.nvim',
     config = function()
-      require('neoscroll').setup({
-        mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>', '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
+      require('neoscroll').setup {
+        mappings = { '<C-u>', '<C-d>', '<C-b>', '<C-f>', '<C-y>', '<C-e>', 'zt', 'zz', 'zb' },
         hide_cursor = true,
         stop_eof = true,
         respect_scrolloff = false,
         cursor_scrolls_alone = true,
-        easing_function = "sine",
+        easing_function = 'sine',
         pre_hook = nil,
         post_hook = nil,
-      })
-    end
+      }
+    end,
   },
 
   -- Add a minimap
   {
-    "gorbit99/codewindow.nvim",
+    'gorbit99/codewindow.nvim',
     config = function()
-      local codewindow = require('codewindow')
-      codewindow.setup({
+      local codewindow = require 'codewindow'
+      codewindow.setup {
         active_in_terminals = false,
         auto_enable = false,
         exclude_filetypes = {
-          'help', 'dashboard', 'neo-tree', 'Trouble', 'lazy', 'mason', 'alpha',
+          'help',
+          'dashboard',
+          'neo-tree',
+          'Trouble',
+          'lazy',
+          'mason',
+          'alpha',
         },
         max_minimap_height = nil,
         max_lines = nil,
@@ -466,7 +473,7 @@ return {
         z_index = 1,
         show_cursor = true,
         window_border = 'none',
-      })
+      }
       -- Toggle minimap keymapping
       vim.keymap.set('n', '<leader>mm', function()
         codewindow.toggle_minimap()
@@ -481,8 +488,8 @@ return {
       'anuvyklack/middleclass',
     },
     config = function()
-      require('windows').setup({
-        autowidth = { 
+      require('windows').setup {
+        autowidth = {
           enable = true,
           winwidth = 0,
           filetype = {
@@ -491,39 +498,39 @@ return {
         },
         ignore = {
           buftype = { 'quickfix' },
-          filetype = { 'NvimTree', 'neo-tree', 'dashboard', 'Outline', 'alpha', 'dashboard' }
+          filetype = { 'NvimTree', 'neo-tree', 'dashboard', 'Outline', 'alpha', 'dashboard' },
         },
         animation = {
           enable = true,
           duration = 300,
           fps = 60,
-          easing = "in_out_sine"
-        }
-      })
-    end
+          easing = 'in_out_sine',
+        },
+      }
+    end,
   },
 
   -- Better file explorer
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons',
+      'MunifTanjim/nui.nvim',
     },
     config = function()
-      require("neo-tree").setup({
+      require('neo-tree').setup {
         close_if_last_window = true,
         window = {
-          position = "left",
+          position = 'left',
           width = 30,
           mappings = {
-            ["<space>"] = "none",
-            ["l"] = "open",
-            ["h"] = "close_node",
-            ["."] = "toggle_hidden",
-          }
+            ['<space>'] = 'none',
+            ['l'] = 'open',
+            ['h'] = 'close_node',
+            ['.'] = 'toggle_hidden',
+          },
         },
         filesystem = {
           filtered_items = {
@@ -531,50 +538,50 @@ return {
             hide_dotfiles = true,
             hide_gitignored = true,
             hide_by_name = {
-              ".DS_Store",
-              "thumbs.db",
-              "node_modules",
+              '.DS_Store',
+              'thumbs.db',
+              'node_modules',
             },
           },
           follow_current_file = {
             enabled = true,
           },
-          hijack_netrw_behavior = "open_current",
+          hijack_netrw_behavior = 'open_current',
           use_libuv_file_watcher = true,
         },
         default_component_configs = {
           indent = {
             with_expanders = true,
-            expander_collapsed = "",
-            expander_expanded = "",
-            expander_highlight = "NeoTreeExpander",
+            expander_collapsed = '',
+            expander_expanded = '',
+            expander_highlight = 'NeoTreeExpander',
           },
           icon = {
-            folder_closed = "",
-            folder_open = "",
-            folder_empty = "󰜌",
-            default = "*",
+            folder_closed = '',
+            folder_open = '',
+            folder_empty = '󰜌',
+            default = '*',
           },
           modified = {
-            symbol = "●",
-            highlight = "NeoTreeModified",
+            symbol = '●',
+            highlight = 'NeoTreeModified',
           },
           git_status = {
             symbols = {
-              added     = "✚",
-              modified  = "",
-              deleted   = "✖",
-              renamed   = "󰁕",
-              untracked = "",
-              ignored   = "",
-              unstaged  = "",
-              staged    = "",
-              conflict  = "",
-            }
+              added = '✚',
+              modified = '',
+              deleted = '✖',
+              renamed = '󰁕',
+              untracked = '',
+              ignored = '',
+              unstaged = '',
+              staged = '',
+              conflict = '',
+            },
           },
         },
-      })
-      
+      }
+
       -- Key mappings
       vim.keymap.set('n', '<leader>e', '<cmd>Neotree toggle<CR>', { desc = 'Toggle Explorer' })
       vim.keymap.set('n', '<leader>o', '<cmd>Neotree focus<CR>', { desc = 'Focus Explorer' })
@@ -583,67 +590,19 @@ return {
 
   -- LSP progress indicator
   {
-    "j-hui/fidget.nvim",
-    tag = "legacy",
-    event = "LspAttach",
+    'j-hui/fidget.nvim',
+    tag = 'legacy',
+    event = 'LspAttach',
     opts = {
       text = {
-        spinner = "moon",
+        spinner = 'moon',
       },
       align = {
         bottom = true,
       },
       window = {
-        relative = "editor",
+        relative = 'editor',
         blend = 0,
-      },
-    },
-  },
-
-  -- AI assistants
-  {
-    'yetone/avante.nvim',
-    event = 'VeryLazy',
-    version = false,
-    opts = {
-      provider = 'copilot',
-      openai = {
-        model = 'claude-3.5-sonnet',
-        temperature = 0,
-        max_tokens = 4096,
-      },
-    },
-    build = 'make',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-      'stevearc/dressing.nvim',
-      'nvim-lua/plenary.nvim',
-      'MunifTanjim/nui.nvim',
-      'echasnovski/mini.pick',
-      'nvim-telescope/telescope.nvim',
-      'hrsh7th/nvim-cmp',
-      'ibhagwan/fzf-lua',
-      'nvim-tree/nvim-web-devicons',
-      'zbirenbaum/copilot.lua',
-      {
-        'HakonHarnes/img-clip.nvim',
-        event = 'VeryLazy',
-        opts = {
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-          },
-        },
-      },
-      {
-        'MeanderingProgrammer/render-markdown.nvim',
-        opts = {
-          file_types = { 'markdown', 'Avante' },
-        },
-        ft = { 'markdown', 'Avante' },
       },
     },
   },
