@@ -72,7 +72,7 @@ opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50" -- Different curs
 -- Performance
 opt.redrawtime = 1500
 opt.ttyfast = true
-opt.lazyredraw = true
+opt.lazyredraw = false  -- Disabled to prevent issues with Noice plugin
 
 -- NOTE: The colorscheme should be set in the plugin config after lazy.nvim loads
 -- Moved from here to prevent the E185 error
