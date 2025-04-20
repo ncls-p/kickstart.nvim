@@ -1,6 +1,6 @@
--- Todo comments
+-- Todo comments functionality
 return {
-  -- Todo comments
+  -- Todo comments with simplified configuration
   { 
     'folke/todo-comments.nvim', 
     event = 'VimEnter', 

@@ -26,24 +26,24 @@ return {
           end,
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
+        -- Simplified formatting without icons
         formatting = {
           format = function(entry, vim_item)
             vim_item.menu = ({
-              nvim_lsp = '[🔧 LSP]',
-              luasnip = '[✂️ Snippet]',
-              buffer = '[📄 Buffer]',
-              path = '[🔍 Path]',
+              nvim_lsp = '[LSP]',
+              luasnip = '[Snip]',
+              buffer = '[Buf]',
+              path = '[Path]',
             })[entry.source.name]
             return vim_item
           end,
         },
+        -- Simplified mappings
         mapping = cmp.mapping.preset.insert {
           ['<C-n>'] = cmp.mapping.select_next_item(),
           ['<C-p>'] = cmp.mapping.select_prev_item(),
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
           ['<C-Space>'] = cmp.mapping.complete {},
+          ['<CR>'] = cmp.mapping.confirm { select = true },
           ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
@@ -63,15 +63,22 @@ return {
             end
           end, { 'i', 's' }),
         },
+        -- Keep only essential sources
         sources = {
-          { name = 'nvim_lsp', group_index = 0 },
-          { name = 'luasnip', group_index = 1 },
-          { name = 'buffer', group_index = 2 },
-          { name = 'path', group_index = 2 },
+          { name = 'nvim_lsp' },
+          { name = 'luasnip' },
+          { name = 'buffer' },
+          { name = 'path' },
         },
+        -- Simple bordered window
         window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
+          completion = {
+            border = 'rounded',
+            winhighlight = 'Normal:Normal,FloatBorder:BorderBg,CursorLine:PmenuSel,Search:None',
+          },
+          documentation = {
+            border = 'rounded',
+          },
         },
       }
     end,

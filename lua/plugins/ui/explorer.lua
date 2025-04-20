@@ -1,6 +1,6 @@
--- File explorer configuration
+-- File explorer
 return {
-  -- Better file explorer
+  -- File explorer using Neo-tree with simplified configuration
   {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v3.x',
@@ -12,6 +12,7 @@ return {
     config = function()
       require('neo-tree').setup {
         close_if_last_window = true,
+        popup_border_style = "rounded",
         window = {
           position = 'left',
           width = 30,
@@ -24,7 +25,6 @@ return {
         },
         filesystem = {
           filtered_items = {
-            visible = false,
             hide_dotfiles = true,
             hide_gitignored = true,
             hide_by_name = {
@@ -33,48 +33,34 @@ return {
               'node_modules',
             },
           },
-          follow_current_file = {
-            enabled = true,
-          },
-          hijack_netrw_behavior = 'open_current',
+          follow_current_file = { enabled = true },
           use_libuv_file_watcher = true,
         },
         default_component_configs = {
-          indent = {
-            with_expanders = true,
-            expander_collapsed = '',
-            expander_expanded = '',
-            expander_highlight = 'NeoTreeExpander',
-          },
+          indent = { with_expanders = true },
           icon = {
-            folder_closed = '📁',
-            folder_open = '📂',
-            folder_empty = '📄',
-            default = '📄',
+            folder_closed = "📁",
+            folder_open = "📂",
+            default = "📄",
           },
-          modified = {
-            symbol = '✏️',
-            highlight = 'NeoTreeModified',
-          },
+          modified = { symbol = "*" },
           git_status = {
             symbols = {
-              added = '✅',
-              modified = '📝',
-              deleted = '❌',
-              renamed = '🔄',
-              untracked = '❓',
-              ignored = '⚫',
-              unstaged = '📌',
-              staged = '✓',
-              conflict = '⚠️',
+              added = "+",
+              modified = "~",
+              deleted = "-",
+              renamed = "→",
+              untracked = "?",
+              unstaged = "!",
+              staged = "✓",
+              conflict = "×",
             },
           },
         },
       }
-
-      -- Key mappings
-      vim.keymap.set('n', '<leader>e', '<cmd>Neotree toggle<CR>', { desc = '🌲 Toggle Explorer' })
-      vim.keymap.set('n', '<leader>o', '<cmd>Neotree focus<CR>', { desc = '👁️ Focus Explorer' })
+      -- Simple keymaps for file explorer
+      vim.keymap.set('n', '<leader>e', '<cmd>Neotree toggle<CR>', { desc = 'Toggle Explorer' })
+      vim.keymap.set('n', '<leader>o', '<cmd>Neotree focus<CR>', { desc = 'Focus Explorer' })
     end,
   },
 }

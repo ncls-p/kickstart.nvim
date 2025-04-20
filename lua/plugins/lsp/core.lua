@@ -1,7 +1,33 @@
--- Core LSP configuration
+-- LSP core configuration
 return {
   -- LSP Development
   { 'folke/lazydev.nvim', ft = 'lua' },
+  -- Linting (inline diagnostics)
+  {
+    'mfussenegger/nvim-lint',
+    event = { 'BufReadPre', 'BufNewFile' }, -- Trigger early
+    config = function()
+      local lint = require('lint')
+
+      -- Configure linters per filetype
+      lint.linters_by_ft = {
+        -- Add linters for specific filetypes here, e.g.:
+        -- javascript = { 'eslint_d' },
+        -- python = { 'ruff' },
+        -- lua = { 'luacheck' },
+      }
+
+      -- Autocommand to run linting
+      local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
+      vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
+        group = lint_augroup,
+        callback = function()
+          lint.try_lint()
+        end,
+      })
+    end,
+  },
+
 
   -- Core LSP setup
   {
@@ -20,39 +46,30 @@ return {
         callback = function(event)
           local map = function(keys, func, desc, mode)
             mode = mode or 'n'
-            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = desc })
           end
 
-          -- LSP keymaps
-          map('gd', require('telescope.builtin').lsp_definitions, '🔍 [G]oto [D]efinition')
-          map('gr', require('telescope.builtin').lsp_references, '📚 [G]oto [R]eferences')
-          map('gI', require('telescope.builtin').lsp_implementations, '⚙️ [G]oto [I]mplementation')
-          map('gD', vim.lsp.buf.declaration, '📜 [G]oto [D]eclaration')
-          map('K', vim.lsp.buf.hover, 'ℹ️ Hover Documentation')
-          map('<C-k>', vim.lsp.buf.signature_help, '📝 Signature Documentation')
-          map('<leader>rn', vim.lsp.buf.rename, '✏️ [R]e[n]ame')
-          map('<leader>ca', vim.lsp.buf.code_action, '🔧 [C]ode [A]ction', { 'n', 'v' })
-          map('<leader>D', require('telescope.builtin').lsp_type_definitions, '🏷️ Type [D]efinition')
-          map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '🔍 [D]ocument [S]ymbols')
-          map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '🌐 [W]orkspace [S]ymbols')
-          map('<leader>wa', vim.lsp.buf.add_workspace_folder, '📁 [W]orkspace [A]dd Folder')
-          map('<leader>wr', vim.lsp.buf.remove_workspace_folder, '🗑️ [W]orkspace [R]emove Folder')
-          map('<leader>wl', function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end, '📋 [W]orkspace [L]ist Folders')
+          -- Simplified LSP keymaps - only keeping the most essential ones
+          map('gd', vim.lsp.buf.definition, 'Go to Definition')
+          map('gr', require('telescope.builtin').lsp_references, 'Go to References')
+          map('K', vim.lsp.buf.hover, 'Hover Documentation')
+          map('<leader>r', vim.lsp.buf.rename, 'Rename')
+          map('<leader>a', vim.lsp.buf.code_action, 'Code Action', { 'n', 'v' })
+          map('<leader>f', vim.lsp.buf.format, 'Format')
+          map('<leader>s', require('telescope.builtin').lsp_document_symbols, 'Document Symbols')
         end,
       })
 
-      -- Diagnostic configuration
+      -- Simplified diagnostic configuration
       vim.diagnostic.config {
         severity_sort = true,
         float = { border = 'rounded' },
         signs = {
           text = {
-            [vim.diagnostic.severity.ERROR] = '❌ ',
-            [vim.diagnostic.severity.WARN] = '⚠️ ',
-            [vim.diagnostic.severity.INFO] = 'ℹ️ ',
-            [vim.diagnostic.severity.HINT] = '💡 ',
+            [vim.diagnostic.severity.ERROR] = 'E',
+            [vim.diagnostic.severity.WARN] = 'W',
+            [vim.diagnostic.severity.INFO] = 'I',
+            [vim.diagnostic.severity.HINT] = 'H',
           },
         },
       }

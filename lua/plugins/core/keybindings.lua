@@ -1,6 +1,6 @@
--- Keybinding-related plugins
+-- Keybinding utilities
 return {
-  -- Which-key for keybinding help
+  -- Which-key for keybinding help with simplified configuration
   { 
     'folke/which-key.nvim', 
     event = 'VimEnter', 
@@ -21,12 +21,7 @@ return {
             g = true,
           },
         },
-        icons = {
-          breadcrumb = "»",
-          separator = "➜",
-          group = "+",
-        },
-        win = {  -- Renamed from 'window' to 'win'
+        window = {
           border = "rounded",
           padding = { 2, 2, 2, 2 },
         },
@@ -36,21 +31,23 @@ return {
           spacing = 3,
           align = "center",
         },
+        ignore_missing = false,
         show_help = true,
+        triggers = "auto",
       })
       
-      -- Register key groups with descriptive titles (using newer spec format)
+      -- Register key groups with descriptive titles
       wk.register({
-        { "<leader>b", group = "󰖯 Buffer" },
-        { "<leader>c", group = " Code" },
-        { "<leader>d", group = " Debug" },
-        { "<leader>f", group = "󰍉 Find/Files" },
-        { "<leader>g", group = " Git" },
-        { "<leader>l", group = " LSP" },
-        { "<leader>s", group = "󰛔 Search" },
-        { "<leader>t", group = " Terminal" },
-        { "<leader>u", group = " UI/Settings" },
-        { "<leader>w", group = "󱂬 Window" },
+        ["<leader>b"] = { name = "Buffer" },
+        ["<leader>f"] = { name = "Find/Files" },
+        ["<leader>g"] = { name = "Git" },
+        ["<leader>l"] = { name = "LSP" },
+        ["<leader>s"] = { name = "Search" },
+        ["<leader>t"] = { name = "Terminal" },
+        ["<leader>w"] = { name = "Window" },
+        ["<leader>d"] = { name = "Debug" },
+        ["<leader>c"] = { name = "Code" },
+        ["<leader>u"] = { name = "UI/Settings" },
       })
     end
   },

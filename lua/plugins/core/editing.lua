@@ -1,32 +1,35 @@
--- Core editing plugins
+-- Editing utilities
 return {
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
   
-  -- Mini plugins collection
+  -- Mini plugins for essential editing features
   {
     'echasnovski/mini.nvim',
     config = function()
+      -- Text objects for better selection
       require('mini.ai').setup { n_lines = 500 }
+      
+      -- Add/change/delete surrounding pairs
       require('mini.surround').setup()
+      
+      -- Auto-pair brackets and quotes
       require('mini.pairs').setup()
+      
+      -- Commenting functionality
       require('mini.comment').setup {
-        -- Module mappings. Use `''` (empty string) to disable one.
         mappings = {
-          -- Toggle comment (like `gcip` - comment inner paragraph) for both
-          -- Normal and Visual modes
           comment = 'gc',
-          -- Toggle comment on current line
           comment_line = 'gcc',
-          -- Define 'comment' textobject (like `dgc` - delete whole comment block)
           textobject = 'gc',
         },
       }
+      
+      -- Indentation guides
       require('mini.indentscope').setup {
         symbol = '│',
         options = { try_as_border = true },
       }
-      -- We're using lualine instead of mini.statusline
     end,
   },
   

@@ -5,10 +5,8 @@ local M = {}
 
 -- VSCode-specific keymaps
 function M.setup_vscode_keys()
-  -- Load VSCode specific keybindings when running in VSCode
-  if vim.g.vscode then
-    require('keymaps.vscode')
-  end
+  -- Load VSCode specific keybindings (now always active)
+  require('keymaps.vscode').setup()
 end
 
 -- Set up general keymaps that apply to all Neovim instances
@@ -26,8 +24,8 @@ function M.setup()
   vim.keymap.set('n', '<C-Right>', '<cmd>vertical resize +2<CR>', { desc = 'Increase window width' })
   
   -- Buffer navigation
-  vim.keymap.set('n', '<S-h>', '<cmd>bprevious<CR>', { desc = 'Previous buffer' })
-  vim.keymap.set('n', '<S-l>', '<cmd>bnext<CR>', { desc = 'Next buffer' })
+  -- vim.keymap.set('n', '<S-h>', '<cmd>bprevious<CR>', { desc = 'Previous buffer' }) -- Handled by bufferline
+  -- vim.keymap.set('n', '<S-l>', '<cmd>bnext<CR>', { desc = 'Next buffer' }) -- Handled by bufferline
   
   -- Quick exit
   vim.keymap.set('n', '<leader>qq', '<cmd>qa<CR>', { desc = 'Quit' })

@@ -20,6 +20,7 @@ opt.list = true
 opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 opt.termguicolors = true
 opt.laststatus = 3        -- Global statusline
+opt.showtabline = 2       -- Always show the tabline (for bufferline)
 opt.cmdheight = 0         -- Hide command line when not in use for cleaner UI
 opt.pumheight = 10        -- Maximum number of items to show in the popup menu
 opt.winblend = 10         -- Slight transparency for floating windows

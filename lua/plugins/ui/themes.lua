@@ -1,6 +1,18 @@
--- UI themes and colorschemes
+-- Theme-related UI components
 return {
-  -- Themes
+  -- VSCode Dark+ Theme
+  {
+    'Mofiqul/vscode.nvim',
+    name = 'vscode',
+    lazy = false,
+    priority = 1000, -- Ensure it loads first
+    config = function()
+      -- Load the theme
+      vim.cmd.colorscheme 'vscode'
+    end,
+  },
+
+  -- Main theme
   {
     'catppuccin/nvim',
     name = 'catppuccin',
@@ -47,7 +59,7 @@ return {
         },
       }
       -- Set colorscheme after setup
-      vim.cmd.colorscheme 'catppuccin'
+      -- vim.cmd.colorscheme 'catppuccin' -- Disabled to allow vscode theme to take precedence
     end,
   },
 
@@ -62,10 +74,10 @@ return {
     'zaldih/themery.nvim',
     config = function()
       require('themery').setup {
-        -- List of themes to use
+        -- Reduced list of essential themes
         themes = {
           {
-            name = 'Catppuccin Mocha',
+            name = 'Catppuccin Dark',
             colorscheme = 'catppuccin',
             before = [[
               vim.g.catppuccin_flavour = "mocha"
@@ -75,37 +87,7 @@ return {
             ]],
           },
           {
-            name = 'Catppuccin Mocha (Transparent)',
-            colorscheme = 'catppuccin',
-            before = [[
-              vim.g.catppuccin_flavour = "mocha"
-              require("catppuccin").setup({
-                transparent_background = true
-              })
-            ]],
-          },
-          {
-            name = 'Catppuccin Macchiato',
-            colorscheme = 'catppuccin',
-            before = [[
-              vim.g.catppuccin_flavour = "macchiato"
-              require("catppuccin").setup({
-                transparent_background = false
-              })
-            ]],
-          },
-          {
-            name = 'Catppuccin Frappe',
-            colorscheme = 'catppuccin',
-            before = [[
-              vim.g.catppuccin_flavour = "frappe"
-              require("catppuccin").setup({
-                transparent_background = false
-              })
-            ]],
-          },
-          {
-            name = 'Catppuccin Latte',
+            name = 'Catppuccin Light',
             colorscheme = 'catppuccin',
             before = [[
               vim.g.catppuccin_flavour = "latte"
@@ -119,34 +101,6 @@ return {
             colorscheme = 'tokyonight',
           },
           {
-            name = 'Tokyo Night Storm',
-            colorscheme = 'tokyonight-storm',
-          },
-          {
-            name = 'Tokyo Night Day',
-            colorscheme = 'tokyonight-day',
-          },
-          {
-            name = 'Rose Pine',
-            colorscheme = 'rose-pine',
-          },
-          {
-            name = 'Rose Pine Moon',
-            colorscheme = 'rose-pine-moon',
-          },
-          {
-            name = 'Rose Pine Dawn',
-            colorscheme = 'rose-pine-dawn',
-          },
-          {
-            name = 'Nightfox',
-            colorscheme = 'nightfox',
-          },
-          {
-            name = 'Duskfox',
-            colorscheme = 'duskfox',
-          },
-          {
             name = 'Kanagawa',
             colorscheme = 'kanagawa',
           },
@@ -154,8 +108,7 @@ return {
         livePreview = true,
       }
 
-      -- Add keymap to open Themery
-      vim.keymap.set('n', '<leader>ts', '<cmd>Themery<CR>', { desc = '🎨 [T]heme [S]elector' })
+      vim.keymap.set('n', '<leader>t', '<cmd>Themery<CR>', { desc = 'Theme selector' })
     end,
   },
 }
