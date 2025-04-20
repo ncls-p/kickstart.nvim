@@ -96,7 +96,8 @@ The main `init.lua` file in the root directory is the entry point that loads all
 1. Clone this repository to your Neovim configuration directory:
 
    ```
-   git clone https://github.com/yourusername/nvim-config.git ~/.config/nvim
+   git clone https://github.com/ncls-p/kickstart.nvim.git ~/.config/nvim
+   git clone git@github.com:ncls-p/kickstart.nvim.git ~/.config/nvim
    ```
 
 2. Start Neovim:

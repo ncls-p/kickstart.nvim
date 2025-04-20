@@ -57,6 +57,12 @@ return {
             '--column',
             '--smart-case',
             '--hidden',
+            '-L', 
+          },
+        },
+        pickers = {
+          find_files = {
+            follow = true,
           },
         },
         extensions = {
